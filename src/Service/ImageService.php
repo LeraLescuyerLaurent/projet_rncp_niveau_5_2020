@@ -35,9 +35,30 @@ class ImageService{
     }
     
 
-    public function cropImage($image,$destination,$largeur,$hauteur)
+    public function cropImage($image,$destination,$largeur=0,$hauteur=0,$ext)
     {
-       dd($image,$destination,$largeur,$hauteur);
+        $dimention = @getimagesize($image);
+        $ratio = $dimention[1] / $dimention[2];
+
+        if ($largeur==0 && $hauteur==0) { $largeur = $dimention[0];    $hauteur = $dimention[1]; }
+        else if ($hauteur == 0) { $hauteur = round($largeur / $ratio); }
+        else if($largeur == 0){ $largeur = round($hauteur * $ratio); }
+
+        if ($dimention[0]>($largeur/$hauteur)*$dimention[1]) {$dimY=$hauteur; $dimX=round($hauteur*$dimention[0]/$dimention[1]); }
+        if ($dimention[0]<($largeur/$hauteur)*$dimention[1]) {$dimY=$largeur; $dimX=round($largeur*$dimention[0]/$dimention[1]); }
+        if ($dimention[0]==($largeur/$hauteur)*$dimention[1]) {$dimY=$largeur; $dimX=$hauteur; }
+
+
+        $miniature = @imagecreatetruecolor($hauteur,$largeur);
+
+        if ($ext == ".jpg" || $ext == ".JPG" || $ext == ".jpeg" || $ext == ".JPEG" ) { $img = @imagecreatefromjpeg($image);}
+        if ($ext  == ".png" || $ext  == ".PNG") { $img = @imagecreatefrompng($image);}
+        
+        @imagecopyresampled($miniature,$img,0,0,0,0,$dimY,$dimX,$dimention[0],$dimention[1]);
+        @imagejpeg($miniature,$destination,90);
+
+
+        return true;
     }
 
     public function Format(): array{

@@ -29,6 +29,8 @@ class MediaController extends AbstractController
             $image = $this->getParameter('upload_directory');
             
             $data = $form->get('url')->getData();
+            $ext = '.'.pathinfo($data->getClientOriginalName(), PATHINFO_EXTENSION);
+          
             $annee = date('Y');
             $mois = date('m');
             $day = date("d");
@@ -36,29 +38,27 @@ class MediaController extends AbstractController
 
             
             
-            $url = $this->getParameter('upload_directory') . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day;
-            
+            $url = $image. DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day;
             
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($media->getName());
-            $nomimage = $slug . '-' . uniqid() ;
-            $uri = '/dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage. '.png';
-            // dd($url,$uri);
+            $nomimage = $slug . '-' . uniqid().$ext;
+            $uriCrop = 'dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage;
             try {
-                
                 $fin =  $data->move(
                     $url,
                     $nomimage
                 );
                 if ($fin) {
-                   $formats = $imgService->Format();
+                    $formats = $imgService->Format();
                     foreach ($formats as $k => $v) {
                         $prefixe = $k;
                         $taille = explode('x',$v);
-                        $imgService->cropImage($uri,$url.DIRECTORY_SEPARATOR. $nomimage.'_'.$prefixe.'.png',$taille[0],$taille[1]); 
+                        $imgService->cropImage($uriCrop,$url.DIRECTORY_SEPARATOR. $nomimage.'_'.$prefixe.$ext,$taille[0],$taille[1],$ext); 
+                     
                     }
-                
-
+                    
+                    
                 }
             } catch (FileException $e) {}
             
@@ -66,6 +66,7 @@ class MediaController extends AbstractController
             
             $name = htmlspecialchars($media->getName());
             $media->setName($name);
+            $uri = '/dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage;
             $media->setUrl($uri);
             $media->setSlug($slug);
             $media->setToken($token);
@@ -78,7 +79,6 @@ class MediaController extends AbstractController
                 );
             }
         $img = $img->findBy(['token' => $token]);
-
         return $this->render('admin/media/index.html.twig', [
             'mediaForm' => $form->createView(),
             'images' => $img,
@@ -143,17 +143,23 @@ class MediaController extends AbstractController
     /**
      * @Route("admin/media/delete/{id}", name="delete_media")
      */
-    function deleteMedia($id, MediaRepository $media, Request $request,EntityManagerInterface $entityManager)
+    function deleteMedia($id, MediaRepository $media, Request $request,EntityManagerInterface $entityManager,ImageService $imgService)
     {
         $id = $id ;
         //je recup l'url du fichier 
         $m = $media->find(['id' => $id]);
         $urlBdd = $m->getUrl();
+        $suffix = explode('.',$urlBdd);
         $image = $this->getParameter('delete_directory');
         $file = $image.$urlBdd ;
         $pid = $m->getToken();
         if (file_exists($file)) {
-            unlink($file);
+            $filename = implode('.',array_slice($suffix,0,-1));
+            foreach(glob($image.$filename.'*') as $v){
+                if (file_exists($v)) {
+                    unlink($v);
+                }
+            }
             $entityManager->remove($m);
             $entityManager->flush();
             return $this->redirectToRoute('gestion_media',['id' => $pid]);
