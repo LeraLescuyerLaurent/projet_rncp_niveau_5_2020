@@ -8,14 +8,15 @@
                 <section class="container_media col-14  col-m-14 col-l-14 col-xl-14 ">
                     <div class=" principal col-14 col-m-14 col-l-14 col-xl-14">
                         <div class="row">
-                            <img src="{{ media.url | raw }}" alt="" style="width : 250px;">
+                            <img src="{{ url | raw }}" alt="" style="width : 250px;">
                             <div class="form__general">
-                                {{ form_start(AlignMediaType,{ 'attr' :{'class': 'media col-14 col-m-14 col-l-13 col-xl-13'}}) }}
+                                {{ form_start(FormatsMediaType,{ 'attr' :{'class': 'media col-14 col-m-14 col-l-13 col-xl-13'}}) }}
                                 <div class="col-13 col-m-13 col-l-12 col-xl-12">
-                                    {{ form_row(AlignMediaType.name,{'attr' :{ 'placeholder': "nom" , 'value' :  media.name ,'class':'col-13 col-m-13 col-l-12 col-xl-12'}} ) }}
+                                    {{ form_row(FormatsMediaType.name,{'attr' :{ 'placeholder': "nom" , 'value' :  name ,'class':'col-13 col-m-13 col-l-12 col-xl-12'}} ) }}
+                                    {{ form_row(FormatsMediaType.format,{'attr' :{ 'placeholder': "nom" , 'value' :  name ,'class':'col-13 col-m-13 col-l-12 col-xl-12'}} ) }}
                                     <button type="submit" class="uppercase primaire btn">insérer</button>
                                 </div>
-                                {{ form_end(AlignMediaType) }}
+                                {{ form_end(FormatsMediaType) }}
                             </div>
                         </div>
                     </div>

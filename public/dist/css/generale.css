@@ -11639,7 +11639,7 @@ button {
 .picto {
   float: left;
 }
-select#sub_category_categories,select#insert_code_langage,select#post_Category,select#post_subCategory{
+select#sub_category_categories,select#insert_code_langage,select#post_Category,select#post_subCategory,select#formats_media_format{
   margin-bottom: 24px;
   border: 1px solid #ccc;
   height: 50px;

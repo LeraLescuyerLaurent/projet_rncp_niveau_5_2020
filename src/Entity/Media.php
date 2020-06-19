@@ -28,6 +28,11 @@ class Media
      */
     private $slug;
 
+        /**
+     * 
+     */
+    private $format;
+
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\File(
@@ -180,5 +185,25 @@ class Media
     public function __toString() {
         return $this->name;
         return $this->slug;
+    }
+
+    /**
+     * Get the value of format
+     */ 
+    public function getFormat()
+    {
+        return $this->format;
+    }
+
+    /**
+     * Set the value of format
+     *
+     * @return  self
+     */ 
+    public function setFormat($format)
+    {
+        $this->format = $format;
+
+        return $this;
     }
 }

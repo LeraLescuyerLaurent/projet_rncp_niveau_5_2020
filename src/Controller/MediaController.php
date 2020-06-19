@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Media;
 use App\Form\MediaType;
-use App\Form\AlignMediaType;
 use App\Service\ImageService;
+use App\Form\FormatsMediaType;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,18 +91,23 @@ class MediaController extends AbstractController
     public function insertInPage($id,Request $request,MediaRepository $em)
     {
         if($id){
-            $BddMedia= $em->find(['id' => $id]);
-            $form = $this->createForm(AlignMediaType::class);
+            $mediaBdd= $em->find(['id' => $id]);
+            $name = $mediaBdd->getName();
+            $url = $mediaBdd->getUrl();
+            
+            $form = $this->createForm(FormatsMediaType::class);
             $form->handleRequest($request);
                 if ($form->isSubmitted()) {
-                    $id = $BddMedia->getId();
-                    return $this->redirectToRoute('insertImage',['id' => $id]);
+                    $id = $mediaBdd->getId();
+                    $format = $form->getData()->getFormat();
+                    return $this->redirectToRoute('insertImage',['id' => $id,'format'=>$format]);
                 }
+            return $this->render('admin/media/edit.html.twig', [
+                'FormatsMediaType'=> $form->createView(),
+                'name' => $name,
+                'url' =>$url,
+                ]);
         }
-        return $this->render('admin/media/edit.html.twig', [
-            'AlignMediaType'=> $form->createView(),
-            'media' => $BddMedia,
-            ]);
     }
     /**
      * @Route("admin/media/imageUne/{id}", name = "imageUne_media")
@@ -126,9 +131,11 @@ class MediaController extends AbstractController
     /**
      * @Route("admin/insertImageUne/{id}", name="insertImageUne")
      */
-    public function insertImageUne($id=null, MediaRepository $em)
+    public function insertImageUne($id=null,$format, MediaRepository $em)
     {
-            $BddMedia= $em->find(['id' => $id]);
+
+            $BddMedia= $em->findByOne(['id' => $id]);
+
         return $this->render('admin/media/insertImageUne.html.twig', ['media' => $BddMedia]);
     }
     /**
