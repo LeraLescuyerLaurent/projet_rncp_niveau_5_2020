@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}TipsAndNews | catégorie{% endblock %}
+{% block stylesheetsPage %}
+{% endblock %}
+{% block body %}
+<pre>
+
+</pre>
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+        <main>
+            <div class=" principal col-14 col-m-14 col-l-10 col-xl-9">
+
+                 
+            
+                <div class="row">
+                    {% for postByCategorie in postsByCategorie %}
+                    <article class="card col-14 col-m-7 col-l-5 col-xl-3">
+                        <div class="image_card">
+                            <img src="{{ postByCategorie.imagesUne }}" alt="">
+                        </div>
+                        <div class="content">
+                            <h1>{{ postByCategorie.title }}</h1>
+                            <div class="info_article">
+                                {{ postByCategorie.createdAt | date }} <span class="text_{{ postByCategorie.subCategory.categories }}">{{ postByCategorie.subCategory.categories }}</span> 
+                                
+                                {% if  postByCategorie.comments | length ==1  %}
+                                ({{ postByCategorie.comments | length }} Commentaire)
+                        {% elseif  postByCategorie.comments | length > 1  %}
+                                ({{ postByCategorie.comments | length }} Commentaires)
+                        {% endif %}
+                            </div>
+                            <p>
+                                {{ postByCategorie.hat | slice(0, 100) }} ...
+                            </p>
+                            <button><a href="{{ path('show-article',{'categorie':  postByCategorie.subCategory.categories.name, 'id': postByCategorie.id, 'slug': postByCategorie.slug })}}" class="btn btn_{{ postByCategorie.subCategory.categories }} textWhite">read more</a></button>
+                        </div>
+                    </article>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="pagination" >
+                            {% include 'element/_paginationCategories.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% endblock %}
+
+{% block subcat %}
+    {{ render(controller('App\\Controller\\PostsController::countPostsOfSubCategorieForCategorie') ) }}
+{% endblock %}

@@ -1,0 +1,12 @@
+<aside class="categorie_sidebare  col-14 col-m-14 col-l-4 col-xl-4">
+    <h6 class="uppercase bold">sous-catégories </h6>
+    <div class="row">
+        <div class="categorie_list col-14 col-l-4 col-xl-4">
+            {% for subcategorie in subcat %}
+            <div class="categorie col-14 col-l-4 col-xl-4">
+                <a href="{{ path('liste-articles-par-sous-categorie',{'id': subcategorie.id, 'slug': subcategorie.slug })}}"> <span class="categorie_name col-12 col-l-3 col-xl-3 uppercase text16 text_{{ categorieName }}"> {{ subcategorie.name}} </span><span class="categorie_count col-1 col-l-1 col-xl-1 bgc-{{ categorieName }} text18 textWhite ">{{ subcategorie.total }}</span></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</aside>

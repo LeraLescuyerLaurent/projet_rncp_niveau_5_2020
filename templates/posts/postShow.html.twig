@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipsAndNews {% endblock %}
+{% block stylesheetsPage %}
+{% endblock %}
+
+{% block body %}
+    
+
+<article>
+<div class="row">
+    <div class="col-14 col-m-14 col-l-14 col-xl-14 col-push-1 col-l-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+        <div class="image_une_show">
+            <img src="{{ PostShow.imagesUne }} " alt="ma supert image">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1">
+        <main>
+            <section class=" principal col-14 col-m-14 col-l-10 col-xl-9">
+                <div class="row">
+                    <article class="show  col-14 col-m-14 col-l-10 col-xl-9">
+                        <h1  class="uppercase">{{ PostShow.title }}</h1>
+                        <div class="info_show_article">
+                            {{ PostShow.createdAt |  date("d/m/Y ") }} Catégorie: <span class="text_{{ PostShow.subCategory.categories.name }}">{{ PostShow.subCategory.categories.name }}</span> 
+                                {% if  PostShow.comments | length ==1  %}
+                                    ({{ PostShow.comments | length }} Commentaire)
+                                {% elseif  PostShow.comments | length > 1  %}
+                                    ({{ PostShow.comments | length }} Commentaires)
+                                {% endif %}
+                        </div>
+                        <div class="hat">
+                            <p> {{ PostShow.hat | raw}}</p>
+                        </div>
+                        {{ PostShow.content | raw}}
+                    </article>
+                    <aside class="partage col-14 col-m-12 col-l-10 col-xl-12">
+                        <h4 class="uppercase">Partage l'article sur les réseaux sociaux </h4>
+                        <div class="resaux col-14 col-m-12 col-l-10">
+                            <span class="circle facebook center_icon col-1 height-1 col-l-1 height-l-1   "><a href=""><i class="fab fa-facebook-f "></i></a></span>
+                            <span class="circle twiter center_icon col-1 height-1 col-l-1 height-l-1   "><a href=""><i class="fab fa-twitter"></i></a></span>
+                            <span class="circle linkedin center_icon col-1 height-1 col-l-1 height-l-1  "><a href=""><i class="fab fa-linkedin-in"></i></a></span>
+                        </div>
+                    </aside>
+                    <aside class="comments col-14 col-m-12 col-l-10 col-xl-12">
+                        <div class="row">
+                            <h2 class="uppercase">Ajouter un commentaires</h2>
+                            {{ form_start(commentForm,{ 'attr' :{'class': "col-14 col-m-12 col-l-10 col-xl-8"}}) }}
+                                {{ form_row(commentForm.pseudo,{ 'attr' :{'class': "col-14 col-m-14 col-l-11 col-xl-8 ", "id":"pseudo","name":"pseudo"},'value': ''})}}
+                                {{ form_row(commentForm.email,{ 'attr' :{'class': "col-14 col-m-14 col-l-11 col-xl-8 ", "id":"email","name":"email"},'value': ''})}}
+                                {{ form_row(commentForm.comment,{ 'attr' :{'class': "col-14 col-m-13 col-l-9 col-xl-8 height-xl-3 height-3 height-m-2 height-l-2", "id":"comment","name":"comment"},'value': ''})}}
+                            </div>
+                            <button class="uppercase primaire btn" aria-label="Poster Commentaire">Poster</button>
+                            {{ form_end(commentForm) }}
+                            
+                    </aside>
+                    <aside class="comments_list col-14 col-m-14 col-l-10 col-xl-8">
+                        <h2 class="uppercase">Liste des commentaires</h2>
+                            {% for comment in commentaires %}
+                        <div class="comment">
+                        <h3>{{comment.pseudo}}</h3>
+                        <div class="info_show_comments">
+                            {{comment.createdAt | date ('d/m/Y à h:i')}}
+                        </div>
+                        <p>{{comment.comment | raw}}</p></div>
+                        {% endfor %}
+                    </aside>
+                </div>
+            </section>
+        </main>
+{% endblock %}
+{% block sidebare %}{% endblock %}

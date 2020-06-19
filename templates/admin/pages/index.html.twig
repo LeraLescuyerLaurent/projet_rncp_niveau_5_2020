@@ -1,0 +1,42 @@
+{% extends "administration.html.twig" %}
+{% block title %}Pages | Liste{% endblock %}
+
+{% block body %}
+    <section class="contentAdmin ">
+        {% for message in app.flashes('success') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+      <table>
+        <caption>
+          <h1>Liste des Pages</h1>
+        </caption>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Slug</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for pages in pages %}
+          <tr>
+            <th>{{ pages.id}} </th>
+            <td>{{ pages.title}} </td>
+            <td>{{ pages.slug}} </td>
+            <td>
+                <a href="{{ path('adminPageEdit', {'id': pages.id}) }}" class="btn-success">Edit</a>
+                <a href="{{ path('adminPagesDelete', {'id': pages.id}) }}" class="btn-danger">Delete</a>
+            </td>
+          </tr>
+        {% else %}
+          <tr>
+            <td colspan="4">no records found</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+{% endblock %}

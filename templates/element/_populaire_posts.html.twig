@@ -1,0 +1,21 @@
+<aside class="populaires_posts col-14 col-l-4 col-xl-4">
+    <h6 class="uppercase bold">Articles populaires</h6>
+    {% for post in posts %}
+        <article>
+            <a href="{{ path('show-article',{'categorie':  post.subCategory.categories.name, 'id': post.id, 'slug': post.slug })}} ">
+                <div class="post_aside col-7 col-l-4 col-xl-5">
+                    <div class="image_post_sidebare ">
+                        <img src="{{ post.imagesUne }}" alt="" class=" col-2 height-2 col-l-1 height-l-1 col-xl-1 height-xl-1 col-xl-1 height-xl-1">
+                    </div>
+                    <div class="info_post_sidebare col-5  col-l-3 col-xl-4">
+                        <h6 class="text_red">{{ post.title }}</h6>
+                        <div class="info_post">
+                            {{ post.createdAt | date("d/m/Y", "Europe/Paris")  }} <br><span class="text_{{ post.subCategory.categories }}">{{ post.subCategory.categories}}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </article>
+    {% endfor %}
+  
+</aside>

@@ -1,0 +1,20 @@
+{% extends "administration.html.twig" %}
+{% block title %}Commentaires | Show{% endblock %}
+
+{% block body %}
+<div class="row">
+    <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+        <h1>Commentaire de " {{ comment.pseudo }} "  </h1>
+        <p>
+            message envoyé le <span class="bold">{{ comment.createdAt | date("d/m/Y à  h:m")}}</span> par <span class="bold"> {{ comment.email }}</span> 
+        </p>
+        <br>
+        <p>
+            {{ comment.comment }}
+        </p>
+        <button  class="uppercase btn danger ">
+            <a href="{{ path('adminCommentDelete', {'id': comment.id}) }}" class="">Supprimer</a>
+        </button>
+    </section> 
+</div>      
+{% endblock %}

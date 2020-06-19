@@ -1,0 +1,9 @@
+{% extends 'modale.html.twig' %} 
+{% block body %}
+	<script src="/dist/js/mce/mce.js"></script>
+	<script>
+		var win = window.dialogArguments || opener || parent || top;
+		win.send_to_editor('<pre class="language-{{ langage | raw }}"><code class="language-{{ langage | raw }}"><p >Insert your {{langage | raw}} code here!</p></code></pre><br/>');
+		parent.document.getElementById('modal').classList.add("modalNone")
+	</script>
+{% endblock %}

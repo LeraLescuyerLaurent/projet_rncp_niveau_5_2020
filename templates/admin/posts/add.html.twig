@@ -1,0 +1,56 @@
+{% extends "administration.html.twig" %}
+{% block title %}Posts | Add{% endblock %}
+
+{% block body %}
+        {% for message in app.flashes('success') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <section class="contentAdmin  col-14 col-m-14 col-l-14 col-xl-14   col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+            <h1>ajout d'un article</h1>
+            <div class="row">
+                {{ form_start(adminAddPost,{ 'attr' :{'class': 'col-13 col-m-13 col-l-13 col-xl-13'}}) }}
+                    {{ form_row(adminAddPost.title,{ 'attr' :{'placeholder': "Titre de l'article",'class': 'col-13 col-m-13 col-l-13 col-xl-13'}})}}
+                    {{ form_row(adminAddPost.slug,{ 'attr' :{'placeholder': "Slug de l'article",'class': 'col-13 col-m-13 col-l-13 col-xl-13'}})}}
+                    {{ form_row(adminAddPost.Category)}}
+                    {{ form_row(adminAddPost.subCategory)}}
+                    {{ form_row(adminAddPost.hat,{ 'attr' :{'placeholder': "Chapeau de l'article",'class': 'col-13 col-m-13 col-l-13 col-xl-13 height-4 height-m-2 height-l-1'},'label':'Chapeau (max 250 Charactères)'})}}
+                    {{ form_row(adminAddPost.imagesUne,{ 'attr' :{'placeholder': "click pour ajouter une image",'class': 'col-13 col-m-13 col-l-13 col-xl-13'}})}}
+                    {{ form_row(adminAddPost.content)}}
+                    {{ form_row(adminAddPost.online,{'class':'groupeform'})}}
+                    {{ form_row(adminAddPost.slider,{'class':'groupeform'})}}
+                    <button class="uppercase primaire btn">envoyer</button> 
+                {{ form_end(adminAddPost) }}
+            </div>
+        </section>  
+    </div>    
+<div id="modal" class="modal modalNone">
+    <div id="closeModal" class="close" onclick = "addClass()">
+        x
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/dist/js/eventFormSubCategorie.js"></script>
+    <script src="/dist/js/mce/mce.js"></script>
+    <script src="/dist/js/closeModal.js"></script>
+    <script src="/dist/js/imageUne.js"></script>
+    <script src="/dist/js/scriptImage.js"></script>
+    <script>
+        mceEditor.init({
+            selector: 'post_content',
+            patch_image: '{{ path("gestion_media", {id : token}) }}' ,
+            patch_insertCode: '{{ path("admin_insert_code") }}' ,
+        });
+        let image = '{{ path("gestion_media", {id : token}) }}' 
+    </script>
+ 
+{% endblock %}

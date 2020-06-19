@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipsAndNews | index{% endblock %}
+{% block stylesheetsPage %}
+{% endblock %}
+
+{% block body %}
+{{ render(controller('App\\Controller\\PostsController::slideShow' )) }}
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+        <main>
+            <div class=" principal col-14 col-m-14 col-l-10 col-xl-9">
+                    <div class="row">
+                        {% for post in posts %}
+                            <article class="card col-14 col-m-14 col-l-5 col-xl-3">
+                                <div class="image_card">
+                                    <img src="{{ post.imagesUne }}" alt="">
+                                </div>
+                                <div class="content">
+                                    <h1>{{ post.title }}</h1>
+                                    <div class="info_article">
+                                        {{ post.createdAt | date("d/m/Y", "Europe/Paris")  }} <span class="text_{{ post.subCategory.categories }}">{{ post.subCategory.categories}}</span> 
+                                        {% if  post.comments | length ==1  %}
+                                        ({{ post.comments | length }} Commentaire)
+                                        {% elseif  post.comments | length > 1  %}
+                                                ({{ post.comments | length }} Commentaires)
+                                        {% endif %}
+                                    </div>
+                                    <p>
+                                        {{ post.hat | slice(0, 100) }} ...
+                                    </p>
+                                    <button><a href="{{ path('show-article',{'categorie':  post.subCategory.categories.name, 'id': post.id, 'slug': post.slug })}} " class="btn btn_{{ post.subCategory.categories }} textWhite">read more</a></button>
+                                </div>
+                            </article>
+                            {% endfor %}
+                            
+                    </div>
+            </div>
+        </main>
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="/dist/js/carroussel.js"></script>
+{% endblock %}
+{% block sidebare %}
+{% include 'element/sidebare.html.twig' %}
+{% endblock %}

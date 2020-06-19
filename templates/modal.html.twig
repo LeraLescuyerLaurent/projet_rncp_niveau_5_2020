@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>{% block title %}administration{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block stylesheets %}
+        <link rel="stylesheet" href="/dist/css/generale.css">
+        {% endblock %}
+    </head>
+    <body>
+	
+        <section class="container">
+            <aside id="sidebaAdmin" class="sidebar__admin" >
+                <div class="toggle__menu__administration" id="toggleAdminBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+				</div>
+				<span id="closeMenuAdmin" class="close_menu_admin">X</span>
+                <h3>administration </h3>
+                <ul>
+                    <p>Articles</p>
+                    <li><a href="">liste des articles</a></li>
+                    <li><a href="">Ajouyer un article</a></li>
+                </ul>
+                <ul>
+                    <p>Catégories</p>
+                    <li><a href="">liste des catégories</a></li>
+                    <li><a href="">Ajouyer une catégorie</a></li>
+                </ul>
+            </aside>
+    {% block body %}{% endblock %}
+</section>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/dist/js/monscript.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

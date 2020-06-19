@@ -1,0 +1,33 @@
+{# -slideShow.html.twig #}
+<div class="base">
+    <div class="row">
+        <section class=" slider  col-16 col-m-16 col-l-14 col-xl-14 col-xl-push-1 col-l-push-1">
+            <section class="slideshow-container ">
+                {% for slide in slides %}
+                <article id="slideshow" class="slides fade">
+                    <a href="{{ path('show-article',{'categorie':  slide.subCategory.categories.name, 'id': slide.id, 'slug': slide.slug })}}">
+                    <div class="image-carroussel ">
+                        <img src="{{ slide.imagesUne }}" alt="ma supert image">
+                    </div>
+                    <div class="content_carroussel col-l-push-2 col-m-push-1 col-push-1">
+                        <div class="row">
+                            <div class="categorie_carroussel  roboto text24  col-l-3 col-m-7 col-7 bgc_{{ slide.subCategory.categories }}_light">
+                                <h2 class="mTop3 textWhite">Catégorie:{{ slide.subCategory.categories }}</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="categorie_content textWhite col-xl-5 col-l-7 col-m-11 col-14">
+                                <h1 class="{{ slide.subCategory.categories }}">  {{ slide.title }}</h1>
+                                <p class="p">
+                                    {{ slide.hat | slice(0, 100)}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                </article>
+                {% endfor %}
+            </section>
+    </section>
+    </div>
+</div>

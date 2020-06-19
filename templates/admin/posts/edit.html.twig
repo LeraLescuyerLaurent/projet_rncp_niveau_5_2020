@@ -1,0 +1,67 @@
+{% extends "administration.html.twig" %}
+{% block title %}Posts | Edit{% endblock %}
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+            <h1>Ajout d'un article</h1>
+            <div class="row">
+                {{ form_start(formaEditPost,{ 'attr' :{'class': 'col-14 col-m-14 col-l-14 col-xl-14'}}) }}
+                    {{ form_row(formaEditPost.title,{ 'attr' :{'placeholder': "Titre de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
+                    {{ form_row(formaEditPost.slug,{ 'attr' :{'placeholder': "Slug de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
+                    {{ form_row(formaEditPost.Category)}}
+                    {{ form_row(formaEditPost.subCategory)}}
+                    {{ form_row(formaEditPost.hat,{ 'attr' :{'placeholder': "Chapeau de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14 height-4 height-m-2 height-l-1'},'label':'Chapeau (max 250 Charactères)'})}}
+                    {{ form_row(formaEditPost.imagesUne,{ 'attr' :{'placeholder': "click pour ajouter une image",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
+                    {{ form_row(formaEditPost.content)}}
+                    {{ form_row(formaEditPost.online,{ 'attr' :{'class':'groupeform'}})}}
+                    {{ form_row(formaEditPost.slider,{ 'attr' :{'class':'groupeform'}})}}
+                    <button class="uppercase primaire btn">envoyer</button> 
+                {{ form_end(formaEditPost) }}
+            </div>
+        </section>  
+    </div>
+
+
+
+        
+<div id="modal" class="modal modalNone">
+    <div id="closeModal" class="close" onclick = "addClass()">
+        x
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+    <script src="/dist/js/eventFormSubCategorie.js"></script>
+    <script src="/dist/js/mce/mce.js"></script>
+    <script src="/dist/js/closeModal.js"></script>
+    <script>
+        function send_to_editor(content){
+            const ed = content;
+        return ed; 
+        }
+    </script>
+    <script>
+        mceEditor.init({
+            selector: 'post_content',
+            patch_image: '{{ path("gestion_media", {id : post.mediaToken}) }}' ,
+            patch_insertCode: '{{ path("admin_insert_code") }}' ,
+        });
+        function send_to_editor(content){
+            ed =mceEditorField.document
+            console.log(ed,content)
+            ed.execCommand('insertHTML',true,content); 
+            image = content
+        }
+    </script>
+ 
+{% endblock %}

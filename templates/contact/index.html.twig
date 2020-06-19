@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipsAndNews | Contact{% endblock %}
+
+{% block body %}
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+        <main>
+            <section class=" principal col-14 col-m-14 col-l-10 col-xl-10">
+                <div class="row">
+                    <section class="contact col-13 col-m-13 col-l-9 col-xl-9">
+                        <div class="row">
+                            <h1 class="uppercase">Contactez-moi</h1>
+                            {% for message in app.flashes('success') %}
+                            <div class="flash-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="flash-error">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        <div class="row">
+                {{ form_start(formContact,{ 'attr' :{'id': "contact",'class': 'col-13 col-m-13 col-l-9 col-xl-9'}}) }}
+                    {{ form_row(formContact.title,{ 'attr' :{'placeholder': "Votre Email",'label': 'Titre de votre message','class': "col-13 col-m-13 col-l-9 col-xl-9"}})}}
+                    {{ form_row(formContact.email,{ 'attr' :{'placeholder': "Votre Email",'label': 'Entrer votre Email','class': "col-13 col-m-13 col-l-9 col-xl-9"}})}}
+                    {{ form_row(formContact.name,{ 'attr' :{'placeholder': "Votre Nom",'class': "col-13 col-m-13 col-l-9 col-xl-9"},'label': 'Entrer votre Nom'})}}
+                    {{ form_row(formContact.content,{'attr' :{'class': "col-13 col-m-13 col-l-9 col-xl-9  height-6 height-m-3 height-l-3"},'label': 'Votre message'})}}
+                    </div>    
+                    <button class="uppercase primaire btn">envoyer</button> 
+                {{ form_end(formContact) }}
+                    
+                </section>
+                </div>
+            </section>
+        </main>
+{% endblock %}

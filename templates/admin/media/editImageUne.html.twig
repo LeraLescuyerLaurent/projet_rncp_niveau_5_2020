@@ -1,0 +1,27 @@
+{% extends "modale.html.twig" %}
+{% block body %}
+<div class="row">
+    <section class="  col-14 col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+        <div class="row">
+            <h1>Insérer l' image</h1>
+            <div class="row">
+                <section class="container_media col-14  col-m-14 col-l-14 col-xl-14 ">
+                    <div class=" principal col-14 col-m-14 col-l-14 col-xl-14">
+                        <div class="row">
+                            <img src="{{ media.url | raw }}" alt="" style="width : 250px;">
+                            <div class="form__general">
+                                {{ form_start(AlignMediaType,{ 'attr' :{'class': 'media col-14 col-m-14 col-l-13 col-xl-13'}}) }}
+                                <div class="col-13 col-m-13 col-l-12 col-xl-12">
+                                    {{ form_row(AlignMediaType.name,{'attr' :{ 'placeholder': "nom" , 'value' :  media.name ,'class':'col-13 col-m-13 col-l-12 col-xl-12'}} ) }}
+                                    <button type="submit" class="uppercase primaire btn">insérer</button>
+                                </div>
+                                {{ form_end(AlignMediaType) }}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>    
+        </div>
+    </section>
+</div>
+{% endblock %}

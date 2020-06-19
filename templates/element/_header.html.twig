@@ -1,0 +1,55 @@
+
+{# liste-articles-par-categorie #}
+<header>
+    <div class="logo  ">
+        <span class="img_logo">
+            <img src="/dist/images/logo.png" alt="logo tips and news">
+        </span>
+        <a href="/index " class="text_no_decoration pLeft1">
+            <span class="text_tips  text_logo text32">Tips</span>
+            <span class="text_ressources text_logo text32">&</span>
+            <span class="text_news text_logo text32">New's</span>
+        </a>
+    </div>
+    <i class="fas fa-bars menu-toggle textWhite text30 mRight3"></i>
+    <nav>
+        <ul class="nav">
+            <li class="lnav ">
+                <a href="/index ">
+                    <span class="textNav_init text18 oswald uppercase textHover_home verticalCenter">Home</span>
+                </a>
+            </li>
+
+            {% for cat  in category %}
+            <li class="lnav ">
+                <a href="{{ path('liste-articles-par-categorie',{'id': cat.id , 'slug': cat.slug}) }}" >
+                    <span class=" textNav_init text18 oswald uppercase text_{{cat.name}}_hover">{{cat.name}}</span>
+                </a>
+            </li>
+            {% endfor %}
+            <li>
+                <a href="{{ path("contact")}} " >
+                    <span class="textNav_init text18 oswald uppercase textHover_home">Contact</span>
+                </a>
+            </li>
+            <li class="lnav">
+                <a href="#" id="madmin" >
+                    <span class="textNav_init text18 oswald uppercase text_hover_admin  "> <i class="fas fa-user textWhite pRight1"></i>Laurent <i class="fas fa-chevron-down chevron textWhite pLeft1"></i></span>
+                </a>
+                <ul class="navadmin">
+                    <li>
+                        <a href="{{ path('admin-post-index')}}">
+                            <span class="textNav_init text18 oswald uppercase text_hover_admin">
+                                Admin</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="disconnect" class=" ">
+                            <span class="textNav_init text18 oswald uppercase textHover_deconnect">Déconnexion</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

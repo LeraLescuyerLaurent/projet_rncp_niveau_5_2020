@@ -1,0 +1,27 @@
+{% extends "administration.html.twig" %}
+{% block title %}Categories | Edit{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for message in app.flashes('success') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="flash-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15  col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1 ">
+            <h1>Modifier une catégorie</h1>
+            <div class="row">
+                {{ form_start(formatEditCategories,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
+                    {{ form_row(formatEditCategories.name,{ 'attr' :{'placeholder': "Titre de la catégorie",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
+                    {{ form_row(formatEditCategories.slug,{ 'attr' :{'placeholder': "slug de la catégorie",'class': 'col-13 col-m-13 col-l-10 col-xl-10 '}} ) }}
+                    <button class="uppercase primaire btn">{{ button_label|default('Modifier') }}</button>
+                {{ form_end(formatEditCategories) }}
+            </div>
+        </section>  
+    </div> 
+{% endblock %}

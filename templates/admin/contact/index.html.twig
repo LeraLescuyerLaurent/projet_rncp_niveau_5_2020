@@ -1,0 +1,66 @@
+{% extends 'administration.html.twig' %}
+    {% block title %}Contacts | Index{% endblock %}
+{% block body %}
+
+        <section class="contentAdmin">
+            {% for message in app.flashes('success') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="flash-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+            <table id="table">
+                <caption>
+                    <h1>Liste des messages de contact</h1>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>lu</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for contact in contacts %}
+                        <tr >
+                            <td>{{ contact.id }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.name }}</td>
+                            <td>{{ contact.createdAt | date("d/m/Y à  h:m")}}</td>
+                            <td>
+                                {% if  contact.lu == null %}
+                                    <span class="textColor-red">non lu</span>
+                                {% endif %}
+                                {% if  contact.lu == 1 %}
+                                    <span class="textColor-green">lu</span>
+                                {% endif %}
+
+
+                            </td>
+                            <td>
+                                <a href="{{ path('admin-contact-lire', {'id': contact.id}) }}" class="btn-success">Lire</a> --
+                                <a href="{{ path('admin-contact-delete', {'id': contact.id}) }}" class="btn-danger">delete</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="pagination" >
+                    {% include 'admin/elements/_paginator.html.twig' %}
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

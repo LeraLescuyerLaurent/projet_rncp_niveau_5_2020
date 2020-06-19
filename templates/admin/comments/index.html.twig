@@ -1,0 +1,58 @@
+{% extends 'administration.html.twig' %}
+    {% block title %}Commentaires | Index{% endblock %}
+{% block body %}
+
+<section class="contentAdmin">
+    {% for message in app.flashes('success') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="flash-error">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <table id="table">
+        <caption>
+            <h1>Liste des commentaires</h1>
+        </caption>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>date</th>
+                <th>pseudo</th>
+                <th>email</th>
+                <th>comments</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            {% for comments in comments %}
+                <tr >
+                    <td>{{ comments.id}}</td>
+                    <td>{{ comments.createdAt | date ( 'd/m/Y à h:i') }}</td>
+                    <td>{{ comments.pseudo }}</td>
+                    <td>{{ comments.email }}</td>
+                    <td>{{ comments.comment }}</td>
+                    <td>
+                        <a href="{{ path('adminCommentShow', {'id': comments.id}) }}" class="btn-success">lire</a> --
+                        <a href="{{ path('adminCommentDelete', {'id': comments.id}) }}" class="btn-danger">Supprimer</a>
+                        
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="pagination" >
+            {% include 'admin/elements/_paginator.html.twig' %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

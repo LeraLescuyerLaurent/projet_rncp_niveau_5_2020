@@ -1,0 +1,20 @@
+{% extends 'modale.html.twig' %}
+{% block body %}
+
+<div class="row">
+    <h1>ajout d'une section de code</h1>
+        <div class="row">
+            <section class="  col-14 col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+                {% for message in app.flashes('success') %}
+                <div class="flash-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {{ form_start(formInsertCode) }}
+            {{ form_row(formInsertCode.langage,{ 'attr' :{'placeholder': "Choisir le langage"} } ) }}
+            <button class="btn btn_save">{{ button_label|default('Modifier') }}</button>
+            {{ form_end(formInsertCode) }}
+        </section>
+    </div>
+</div>
+{% endblock %}

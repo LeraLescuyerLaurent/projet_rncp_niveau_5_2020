@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipsAndNews | {{ page.title }} {% endblock %}
+{% block stylesheetsPage %}
+{% endblock %}
+
+{% block body %}
+    
+
+<article>
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1">
+        <main>
+            <section class=" principal col-14 col-m-14 col-l-10 col-xl-9">
+                <div class="row">
+                    <article class="show  col-14 col-m-14 col-l-10 col-xl-9">
+                        <h1  class="uppercase">{{ page.title }}</h1>
+                        <br><br>
+                        {{ page.content | raw}}
+                    </article>
+                </div>
+            </section>
+        </main>
+{% endblock %}
+{% block sidebare %}{% endblock %}

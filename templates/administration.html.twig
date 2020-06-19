@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<title>{% block title %}administration{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="/dist/css/generale.css">
+        {% endblock %}
+    </head>
+    <body>
+        {{ render(controller('App\\Controller\\CategoriesController::header') ) }}
+
+        <section class="container_admin ">
+            <aside id="sidebaAdmin" class="sidebar_admin " >
+                <div class="toggle__menu__administration" id="toggleAdminBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+				</div>
+				<span id="closeMenuAdmin" class="close_menu_admin">X</span>
+                <h3>administration </h3>
+                <ul >
+                    <p>Articles</p>
+                    <li><a href="{{ path('admin-post-index')}} ">liste des articles</a></li>
+                    <li><a href="{{ path('admin-post-add')}} ">Ajouter un article</a></li>
+				</ul>
+                <ul>
+                    <p>Catégories Principales</p>
+                    <li><a href=" {{ path('admin-index-categories')}} ">liste des catégories</a></li>
+                    <li><a href="{{ path('admin-category-add')}}">Ajouter une catégorie</a></li>
+                </ul>	
+                <ul>
+                    <p>Sous-Catégories</p>
+                    <li><a href="{{ path('admin-index-subcategorie')}}">liste des sous-catégories</a></li>
+                    <li><a href="{{ path('admin-sub-categories-add')}}">Ajouter une sous-catégorie</a></li>
+                </ul>
+                <ul>
+                    <p>Pages</p>
+                    <li><a href="{{ path('adminPagesIndex')}}">liste des pages</a></li>
+                    <li><a href="{{ path('adminPagesAdd')}}">Ajouter une page</a></li>
+                </ul>
+                <ul>
+                    <p>Commentaires</p>
+                    <li><a href="{{ path('adminCommentIndex')}}">liste des messages</a></li>
+                </ul>
+				<ul>
+                    <p>Contact</p>
+                    <li><a href="{{ path('admin-contact-index')}}">liste des messages</a></li>
+                </ul>
+            </aside>
+    {% block body %}{% endblock %}
+</section>
+<footer></footer>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="/dist/js/monscript.js"></script>
+        {% block javascripts %}{% endblock %}
+
+    </body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "administration.html.twig" %}
+{% block title %}SubCategories | Edit{% endblock %}
+{% block body %}
+<div class="row">
+    <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+        <h1>Modifier une sous-catégorie</h1>
+        <div class="row">
+            {% for message in app.flashes('success') %}
+                <div class="flash-success">
+                {{ message }}
+                </div>
+            {% endfor %}
+            {{ form_start(formEditCategories,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
+            {{ form_widget(formEditCategories)}}
+            <button class="uppercase primaire btn">{{ button_label|default('Modifier') }}</button>
+            {{ form_end(formEditCategories) }}
+        </div>
+    </section>  
+</div> 
+{% endblock %}

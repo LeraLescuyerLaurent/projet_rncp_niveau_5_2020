@@ -1,0 +1,26 @@
+{% extends "administration.html.twig" %}
+{% block title %}Contact | Show{% endblock %}
+
+{% block body %}
+<div class="row">
+    <section class="contentAdmin col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+        <h1>{{ contact.title }} </h1>
+        <p>
+            message envoyé le <span class="bold">{{ contact.createdAt | date("d/m/Y à  h:m")}}</span> par <span class="bold"> {{ contact.name }}</span> avec l'email <span class="bold">{{ contact.email }}</span>
+        </p>
+        <br>
+        <p>
+            {{ contact.content }}
+        </p>
+        <br>
+        <div class="form">
+            {{ form_start(formContactLu,{ 'attr' :{'id': "contact"}}) }}
+                <div class="input">
+                    {{ form_row(formContactLu.lu,{ 'attr' :{'class':'groupeform','label': 'Message lu'}})}}
+                </div>
+                <button class="uppercase primaire btn">{{ button_label|default('Valider la lecture') }}</button>
+            {{ form_end(formContactLu) }}
+        </div>
+    </section>   
+</div>
+{% endblock %}

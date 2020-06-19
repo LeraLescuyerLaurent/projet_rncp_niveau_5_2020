@@ -1,0 +1,53 @@
+{% extends 'administration.html.twig' %}
+{% block title %}SubCategories | Index{% endblock %}
+{% block body %}
+    <section class="contentAdmin ">
+        {% for message in app.flashes('success') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="flash-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table id="table">
+            <caption>
+                <h1>Liste des sous-catégories</h1>
+            </caption>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>categorie Primaire</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            {% for categories in categories %}
+                <tr >
+                    <td>{{ categories.id }}</td>
+                    <td>{{ categories.name }}</td>
+                    <td>{{ categories.slug }}</td>
+                    <td>{{ categories.categories.name }} </td>
+                    <td>
+                        <a href="{{ path('admin-sub-categories-edit', {'id': categories.id}) }}" class="btn-success">Editer</a> --
+                        <a href="{{ path('admin-sub-categories-delete', {'id': categories.id}) }}" class="btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="pagination" >
+                {% include 'admin/elements/_paginator.html.twig' %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
