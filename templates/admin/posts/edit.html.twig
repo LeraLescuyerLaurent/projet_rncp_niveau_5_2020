@@ -44,24 +44,16 @@
     <script src="/dist/js/eventFormSubCategorie.js"></script>
     <script src="/dist/js/mce/mce.js"></script>
     <script src="/dist/js/closeModal.js"></script>
-    <script>
-        function send_to_editor(content){
-            const ed = content;
-        return ed; 
-        }
-    </script>
+    <script src="/dist/js/imageUne.js"></script>
+    <script src="/dist/js/scriptImage.js"></script>
     <script>
         mceEditor.init({
             selector: 'post_content',
             patch_image: '{{ path("gestion_media", {id : post.mediaToken}) }}' ,
             patch_insertCode: '{{ path("admin_insert_code") }}' ,
         });
-        function send_to_editor(content){
-            ed =mceEditorField.document
-            console.log(ed,content)
-            ed.execCommand('insertHTML',true,content); 
-            image = content
-        }
+      
+        let image = '{{ path("gestion_media", {id : post.mediaToken}) }}';
     </script>
  
 {% endblock %}

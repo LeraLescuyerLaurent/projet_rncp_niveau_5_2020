@@ -30,6 +30,7 @@ class PostsController extends AbstractController
         $post =  $postsRepository->findBy(['slider' => false, "online" => true],
                 ['createdAt' => 'DESC'],
                 $limit);
+                
         return $this->render('/posts/index.html.twig', [
             'controller_name' => 'PostsController',
             'posts' =>$post

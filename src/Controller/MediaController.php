@@ -42,12 +42,12 @@ class MediaController extends AbstractController
             
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($media->getName());
-            $nomimage = $slug . '-' . uniqid().$ext;
-            $uriCrop = 'dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage;
+            $nomimage = $slug . '-' . uniqid();
+            $uriCrop = 'dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage.$ext;
             try {
                 $fin =  $data->move(
                     $url,
-                    $nomimage
+                    $nomimage.$ext
                 );
                 if ($fin) {
                     $formats = $imgService->Format();
@@ -66,7 +66,7 @@ class MediaController extends AbstractController
             
             $name = htmlspecialchars($media->getName());
             $media->setName($name);
-            $uri = '/dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage;
+            $uri = '/dist/images' . DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day. DIRECTORY_SEPARATOR . $nomimage.$ext;
             $media->setUrl($uri);
             $media->setSlug($slug);
             $media->setToken($token);
@@ -85,30 +85,7 @@ class MediaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("admin/media/show/{id}", name = "show_media")
-     */
-    public function insertInPage($id,Request $request,MediaRepository $em)
-    {
-        if($id){
-            $mediaBdd= $em->find(['id' => $id]);
-            $name = $mediaBdd->getName();
-            $url = $mediaBdd->getUrl();
-            
-            $form = $this->createForm(FormatsMediaType::class);
-            $form->handleRequest($request);
-                if ($form->isSubmitted()) {
-                    $id = $mediaBdd->getId();
-                    $format = $form->getData()->getFormat();
-                    return $this->redirectToRoute('insertImage',['id' => $id,'format'=>$format]);
-                }
-            return $this->render('admin/media/edit.html.twig', [
-                'FormatsMediaType'=> $form->createView(),
-                'name' => $name,
-                'url' =>$url,
-                ]);
-        }
-    }
+
     /**
      * @Route("admin/media/imageUne/{id}", name = "imageUne_media")
      */
@@ -116,7 +93,7 @@ class MediaController extends AbstractController
     {
         if($id){
             $BddMedia= $em->find(['id' => $id]);
-            $form = $this->createForm(AlignMediaType::class);
+            $form = $this->createForm(FormatsMediaType::class);
             $form->handleRequest($request);
                 if ($form->isSubmitted()) {
                     $id = $BddMedia->getId();
@@ -131,20 +108,55 @@ class MediaController extends AbstractController
     /**
      * @Route("admin/insertImageUne/{id}", name="insertImageUne")
      */
-    public function insertImageUne($id=null,$format, MediaRepository $em)
+    public function insertImageUne($id=null,MediaRepository $em)
     {
 
-            $BddMedia= $em->findByOne(['id' => $id]);
+            $BddMedia= $em->find(['id' => $id]);
 
         return $this->render('admin/media/insertImageUne.html.twig', ['media' => $BddMedia]);
     }
-    /**
-     * @Route("admin/tinymce/{id}", name="insertImage")
+
+        /**
+     * @Route("admin/media/show/{id}", name = "show_media")
      */
-    public function tinymce($id=null, MediaRepository $em)
+    public function insertInPage($id,Request $request,MediaRepository $em)
     {
+        if($id){
+            $mediaBdd= $em->find(['id' => $id]);
+            $name = $mediaBdd->getName();
+            $url = $mediaBdd->getUrl();
+            
+            $form = $this->createForm(FormatsMediaType::class);
+            $form->handleRequest($request);
+                if ($form->isSubmitted()) {
+                    $id = $mediaBdd->getId();
+                    $format = $form->getData()->getFormat();
+                     return $this->redirectToRoute('insertImage',['id' => $id,'format'=>$format]);
+                }
+            return $this->render('admin/media/edit.html.twig', [
+                'FormatsMediaType'=> $form->createView(),
+                'name' => $name,
+                'url' =>$url,
+                ]);
+        }
+    }
+    /**
+     * @Route("admin/tinymce/{id}/{format}", name="insertImage")
+     */
+    public function tinymce($id=null,$format,  MediaRepository $em)
+    {
+            $format =$format;
             $BddMedia= $em->find(['id' => $id]);
-        return $this->render('admin/media/insertImage.html.twig', ['media' => $BddMedia]);
+            $url = $BddMedia->getUrl();
+            $name = $BddMedia->getName();
+            $explode = explode('.',$url);
+            $prefix = $explode[0];
+            $ext = $explode[1];
+            $image = $prefix.$format.'.'.$ext;
+        return $this->render('admin/media/insertImage.html.twig', [
+            'name' => $name,
+            'urlImage' => $image,
+            ]);
     }
 
     /**
@@ -160,15 +172,16 @@ class MediaController extends AbstractController
         $image = $this->getParameter('delete_directory');
         $file = $image.$urlBdd ;
         $pid = $m->getToken();
+        
         if (file_exists($file)) {
             $filename = implode('.',array_slice($suffix,0,-1));
             foreach(glob($image.$filename.'*') as $v){
                 if (file_exists($v)) {
                     unlink($v);
                 }
+                $entityManager->remove($m);
+                $entityManager->flush();
             }
-            $entityManager->remove($m);
-            $entityManager->flush();
             return $this->redirectToRoute('gestion_media',['id' => $pid]);
             $this->addFlash(
                 'succes',

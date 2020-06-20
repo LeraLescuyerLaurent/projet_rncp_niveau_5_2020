@@ -16,9 +16,8 @@ class FormatsMediaType extends AbstractType
          ->add('format', ChoiceType::class, [ 'choices' => [
             'small' => '_s',
             'medium' => '_m',
-            'large' => '_l',
-            'original' => '',
-        ],
+            'large' => '_l'
+            ],
         'preferred_choices' => ['medium', '_m'],
     ]);}
 
