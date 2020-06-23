@@ -21,11 +21,13 @@ class Posts
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique(message = "Ce titre existe déjà sur un autre article")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Unique(message = "Ce slug existe déjà sur un autre article")
      */
     private $slug;
 

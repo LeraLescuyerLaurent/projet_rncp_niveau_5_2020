@@ -27,12 +27,22 @@ class Contact
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Votre nom doit contenir au minimum{{ limit }} characteres",
+     *      maxMessage = "Votre Nom doit contenir au maximum {{ limit }} characteres",
+     *      allowEmptyString = false
+     * )
+     *  
+     * @Assert\NotNull( message = "merci d'entrer Votre nom")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotNull( message = "Veuillez saisir un message")
      */
     private $content;
 
@@ -47,8 +57,17 @@ class Contact
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+    * @ORM\Column(type="string", length=150)
+    *  @Assert\Length(
+    *      min = 2,
+    *      max = 150,
+    *      minMessage = "Le titre doit contenir au minimum{{ limit }} characteres",
+    *      maxMessage = "Le titre doit contenir au maximum {{ limit }} characteres",
+    *      allowEmptyString = false
+    * )
+    *  
+    * @Assert\NotNull( message = "Veuillez d'entrer un titre à votre message")
+    */
     private $title;
 
     public function getId(): ?int

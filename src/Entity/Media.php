@@ -28,11 +28,6 @@ class Media
      */
     private $slug;
 
-        /**
-     * 
-     */
-    private $format;
-
     /**
      * @ORM\Column(type="string", length=255)
      *  @Assert\File(

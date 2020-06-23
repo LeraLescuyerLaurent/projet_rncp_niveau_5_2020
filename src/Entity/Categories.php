@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoriesRepository")
@@ -20,11 +22,13 @@ class Categories
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Unique(message = "Ce slug existe déjà")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=60)
+     * @Assert\Unique(message = "Cette catégorie existe déjà")
      */
     private $slug;
 
