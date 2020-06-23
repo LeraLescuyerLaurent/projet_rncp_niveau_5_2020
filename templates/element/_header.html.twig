@@ -32,6 +32,7 @@
                     <span class="textNav_init text18 oswald uppercase textHover_home">Contact</span>
                 </a>
             </li>
+            {% if app.user %}
             <li class="lnav">
                 <a href="#" id="madmin" >
                     <span class="textNav_init text18 oswald uppercase text_hover_admin  "> <i class="fas fa-user textWhite pRight1"></i>Laurent <i class="fas fa-chevron-down chevron textWhite pLeft1"></i></span>
@@ -44,12 +45,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="disconnect" class=" ">
+                        <a href="{{ path('security_logout') }}">
                             <span class="textNav_init text18 oswald uppercase textHover_deconnect">Déconnexion</span>
                         </a>
                     </li>
                 </ul>
             </li>
+            {% endif %}
         </ul>
     </nav>
 </header>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       

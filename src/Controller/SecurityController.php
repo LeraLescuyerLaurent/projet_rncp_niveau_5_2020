@@ -39,4 +39,12 @@ class SecurityController extends AbstractController
             'formLogin' =>$form->createView()
         ]);
     }
+
+/**
+ * @Route("logout", name="security_logout")
+ */
+    public  function logout()
+    {
+        return $this->redirectToRoute('index-site');
+    }
 }

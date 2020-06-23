@@ -21,7 +21,7 @@ class PostsController extends AbstractController
 {
     /**
      * 
-     * @Route("index", name="index-site")
+     * @Route("/", name="index-site")
      * 
      */
     public function index (PostsRepository $postsRepository): Response
