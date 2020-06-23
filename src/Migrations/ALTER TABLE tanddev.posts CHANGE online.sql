@@ -1,1 +1,0 @@
-ALTER TABLE tanddev.posts CHANGE online online tinyint(1) NOT NULL comment '';

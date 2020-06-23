@@ -29,6 +29,7 @@ class CategoriesController extends AbstractController
      */
     public function adminCatgoriesIndex(int $page = 1,CategoriesRepository $categoryRepository): Response
     {
+    
         $nbCatgoriesByPage = 10;
         $categorie = $categoryRepository->findAllCategorie($page, $nbCatgoriesByPage);
 

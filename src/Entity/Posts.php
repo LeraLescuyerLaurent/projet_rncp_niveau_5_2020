@@ -374,11 +374,6 @@ class Posts
         return $this;
     }
 
-    public function __toString() {
-        return $this->title;
-        return $this->slug;
-        return $this->subCategory;
-        return $this->createdAt;
-    }
+
 
 }

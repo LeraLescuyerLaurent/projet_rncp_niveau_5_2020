@@ -1,0 +1,33 @@
+{% extends 'administration.html.twig' %}
+
+{% block title %}Tips and News | Login{% endblock %}
+
+{% block body %}
+<div class="row">
+    <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15   col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
+        <h1>Connexion</h1>
+        <div class="row">
+            {% for message in app.flashes('success') %}
+                <div class="flash-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <form name="registration" method="post" class="col-13 col-m-13 col-l-10 col-xl-10">
+                <div>
+                    <label for="email" class="required">Adresse Email</label>
+                    <input type="email" id="email" name="email" required="required" maxlength="255" placeholder="Entrer l'adresse Email ..." class="col-13 col-m-13 col-l-10 col-xl-10">
+                </div>
+                <div>
+                    <label for="password" class="required">Mot de Passe</label>
+                    <input type="password" id="password" name="password" required="required" placeholder="Entrer un mot de passe entre 12 et 50 caractères ..." class="col-13 col-m-13 col-l-10 col-xl-10">
+                </div>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token('login_token') }}">
+                <button class="uppercase primaire btn">Modifier</button>
+        </form>
+        </div>
+    </section>  
+</div> 
+
+
+
+{% endblock %}
