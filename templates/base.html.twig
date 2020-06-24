@@ -42,9 +42,13 @@
                         <span class="circle git center_icon col-1 height-1 col-l-1 height-l-1  "><a href=""><i class="fab fa-github"></i></a></span>
                     </div>
                 </aside>
+
+
                             {% block cat %}{{ render(controller('App\\Controller\\PostsController::countPostsByCategorie') ) }}{% endblock %}
                             {% block subcat %}{% endblock %}
                             {{ render(controller('App\\Controller\\PostsController::PopulairePosts') ) }}
+
+
             </section>
             </section>
         </div>

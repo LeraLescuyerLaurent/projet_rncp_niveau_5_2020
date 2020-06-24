@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message = "Ce compte existe déjas")
  */
 class User implements UserInterface
 {
@@ -19,20 +22,32 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotBlank
+    *   @Assert\Length(
+    *      min = 8,
+    *      max = 15,
+    *      minMessage = "Votre nom doit contenir au minimum {{ limit }} charactères",
+    *      maxMessage = "Votre nom doit contenir au maximum {{ limit }} charactères",
+    * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
+    *@ORM\Column(type="string", length=255)
+    */
     private $password;
 
+
+
+    
     public function getId(): ?int
     {
         return $this->id;

@@ -12,14 +12,13 @@
                     {{ message }}
                 </div>
             {% endfor %}
-            {{ form_start(formUser,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
-                {{ form_row(formUser.email,{"label": "Adresse Email", 'attr' :{'placeholder': "Entrer l'adresse Email ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
-                {{ form_row(formUser.username,{"label": "UserName", 'attr' :{'placeholder': "Entrer le Username ... ",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
-                {{ form_row(formUser.password,{"label": "Mot de Passe", 'attr' :{'placeholder': "Entrer un mot de passe entre 12 et 50 caractères ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
-                {{ form_row(formUser.confirm_password,{ "label": "Conformation du Mot de Passe",'attr' :{'placeholder': "Confirmer votre Mot de Passe ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
+            {{ form_start(registration_form,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
+                {{ form_row(registration_form.email,{"label": "Adresse Email", 'attr' :{'placeholder': "Entrer l'adresse Email ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
+                {{ form_row(registration_form.name,{"label": "Pseudo", 'attr' :{'placeholder': "Entrer votre pseudo ... ",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
+                {{ form_row(registration_form.plainPassword,{"label": "Mot de Passe", 'attr' :{'placeholder': "Entrer un mot de passe entre 12 et 50 caractères ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
 
                 <button class="uppercase primaire btn">{{ button_label|default('Modifier') }}</button>
-            {{ form_end(formUser) }}
+            {{ form_end(registration_form) }}
         </div>
     </section>  
 </div> 

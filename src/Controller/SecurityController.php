@@ -7,15 +7,43 @@ use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
+    public const LAST_EMAIL = 'app_login_form_last_email';
+
+
+
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request,UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request,UserPasswordEncoderInterface $encoder): Response
     {
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class,$user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $plainPassword = $form['plainPassword']->getdata();
+
+            $data->setPassword($encoder->encodePassword($user, $plainPassword));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', "l'utilisateur est bien inscrit");
+
+            $this->redirectToRoute('security_login');
+            
+        }
+
+        return $this->render('security/inscription.html.twig', [
+            'registration_form' => $form->createView(),
+        ]);
     }
 
     
@@ -24,19 +52,11 @@ class SecurityController extends AbstractController
      *
      * 
      */
-    public function login(Request $request)
+    public function login(): Response
     {
-
-        $user = new User();
-
-
-        $form = $this->createForm(RegistrationType::class, $user);
-
-
 
         return $this->render('security/login.html.twig', [
             'controller_name' => 'SecurityController',
-            'formLogin' =>$form->createView()
         ]);
     }
 
@@ -45,6 +65,6 @@ class SecurityController extends AbstractController
  */
     public  function logout()
     {
-        return $this->redirectToRoute('index-site');
+        throw new \LogicException('this method can be blank - it will be intercepted by the logout key on your firewall. ');
     }
 }
