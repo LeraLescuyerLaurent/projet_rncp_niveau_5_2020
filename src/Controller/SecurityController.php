@@ -5,9 +5,10 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
@@ -17,7 +18,8 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/inscription", name="security_registration")
+     * @Route("admin/users/add", name="admin-security-registration")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function registration(Request $request,UserPasswordEncoderInterface $encoder): Response
     {
@@ -37,7 +39,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('success', "l'utilisateur est bien inscrit");
 
-            $this->redirectToRoute('security_login');
+            $this->redirectToRoute('security-login');
             
         }
 
@@ -48,20 +50,17 @@ class SecurityController extends AbstractController
 
     
     /**
-     * @Route("/login", name="security_login")
-     *
-     * 
+     * @Route("/login", name="security-login")
      */
     public function login(): Response
     {
-
         return $this->render('security/login.html.twig', [
             'controller_name' => 'SecurityController',
         ]);
     }
 
 /**
- * @Route("logout", name="security_logout")
+ * @Route("logout", name="security-logout")
  */
     public  function logout()
     {

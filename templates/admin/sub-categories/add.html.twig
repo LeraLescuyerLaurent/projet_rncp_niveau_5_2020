@@ -2,11 +2,7 @@
 {% block title %}SubCategories | Add{% endblock %}
 {% block body %}
 <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1 ">
-    {% for message in app.flashes('success') %}
-        <div class="flash-success">
-        {{ message }}
-        </div>
-    {% endfor %}
+    {% include "/element/_flash_messages.html.twig" %}
     <h1>Ajout d'une sous-catégorie</h1>
     <div class="row">
         {{ form_start(formCatAdd,{ 'attr' :{'class': 'col-14 col-m-14 col-l-14 col-xl-14'}}) }}

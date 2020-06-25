@@ -9,20 +9,19 @@ use App\Entity\Comments;
 use App\Form\CommentType;
 use App\Entity\Categories;
 use App\Entity\SubCategories;
-use App\Repository\CommentsRepository;
 use App\Repository\PostsRepository;
+use App\Repository\CommentsRepository;
 use App\Repository\SubCategoriesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostsController extends AbstractController
 {
     /**
-     * 
      * @Route("/", name="index-site")
-     * 
      */
     public function index (PostsRepository $postsRepository): Response
     {
@@ -37,30 +36,24 @@ class PostsController extends AbstractController
         ]);
     }
 
-
-        /**
-     * 
+    /**
      * @Route("post/categorie/{id}-{slug}/{page}", name="liste-articles-par-categorie")
-     * 
      */
     public function PostsByCategorie ($slug,int $page =1,int $id,PostsRepository $postRepository,Categories $categorie): Response
     {
         if (!$categorie) {
             404;
         }
-      
+
         $url =  $_SERVER['REQUEST_URI'];
         $parseUrl =parse_url($url, PHP_URL_PATH);
         $explodeSlash = explode("/", $parseUrl);
         $explodeTiret = explode("-", $explodeSlash[3]);
         $categorie = $explodeTiret[1];
 
-       
         $nbArticleByPage = 2;
 
-
         $CategorieOfPost =$postRepository->FindPostByCategorie($id , $page, $nbArticleByPage);
-        // dd($CategorieOfPost);
 
         $pagination = array(
             'page' => $page,
@@ -69,17 +62,16 @@ class PostsController extends AbstractController
             'id' =>$id,
             'slug' =>$slug
         );
-        // dd($pagination);
+    
         return $this->render('/posts/postsByCategorie.html.twig', [
             'categorie' => $categorie,
             'postsByCategorie' => $CategorieOfPost,
             'pagination' => $pagination
         ]);
     }
-      /**
-     * 
+
+    /**
      * @Route("post/sous-categorie/{id}-{slug}/{page}", name="liste-articles-par-sous-categorie")
-     * 
      */
     public function PostsBySubCategorie ($slug,int $page =1,int $id,PostsRepository $postRepository,SubCategories $subCategorie): Response
     {
@@ -106,9 +98,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * 
      * @Route("post/{categorie}/show/{id}-{slug}", name="show-article")
-     * 
      */
     public function PostsShow (int $id,PostsRepository $postRepository,Posts $post,Request $request,CommentsRepository $commentRepo): Response
     {
@@ -117,7 +107,7 @@ class PostsController extends AbstractController
         }
         $PostShow =  $postRepository->findOneBy(['id' => $id]); 
 
-        // COMMENTAIRES
+        /** COMMENTAIRES */
         $commentaire = new Comments();
 
         $form = $this->createForm(CommentType::class, $commentaire);
@@ -151,7 +141,7 @@ class PostsController extends AbstractController
         $commentaires = $commentRepo->findBy(['postId' => $id],['createdAt' => 'DESC']);
 
 
-        // NB VISITEURS ARTICLES
+        /**  NB VISITEURS ARTICLES */
             $pointsPost = $PostShow->getPoints() +1;
             $postRepository->UpdatePointsOfPost($id,$pointsPost);
 
@@ -165,7 +155,9 @@ class PostsController extends AbstractController
         ]);
     }
 
-    // ELEMENTS
+/*******************************
+     *   ELEMENTS   *
+*******************************/
     public function slideShow(PostsRepository $postsRepository): Response
     {
         $slider = $postsRepository->findBy(['slider' => true],
@@ -206,9 +198,6 @@ class PostsController extends AbstractController
         $categorie = $c->getCategories()->getId();
         $categorieName = $c->getCategories()->getName();
 
-
-
-        // recupere la categorie par raport a l id
         $post = $postRepository->countPostsOfSubCategorieForSubCategorie($categorie); 
         return $this->render('/element/_countPostsBySubCategorieForSubcategorie.html.twig', [
         'controller_name' => 'PostsController',
@@ -227,10 +216,13 @@ class PostsController extends AbstractController
         return $this->render('/element/_populaire_posts.html.twig', ['posts' => $post]);
     }
 
-    // ADMINISTRATION DES ARTICLES
+/*******************************
+     *   ADMINISTRATION   *
+*******************************/
     
     /**
      * @Route("admin/posts/{page}", name="admin-post-index")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminPostsIndex(int $page = 1,PostsRepository $postsRepository)
     {
@@ -249,6 +241,7 @@ class PostsController extends AbstractController
 
     /**
      * @Route("admin/post/add", name="admin-post-add") 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function addPost(Request $request)
     {
@@ -283,6 +276,7 @@ class PostsController extends AbstractController
     }
     /**
      * @Route("admin/post/edit/{id}", name="admin-post-edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminPostEdit(int $id,Request $request, Posts $post,PostsRepository $postR)
     {
@@ -306,8 +300,8 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("admin/post/delete/{id}", name="admin_post_delete")
-     * 
+     * @Route("admin/post/delete/{id}", name="admin-post-delete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Posts $post)
     {

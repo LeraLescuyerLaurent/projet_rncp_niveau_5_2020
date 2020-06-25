@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Comments;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -23,6 +24,22 @@ class CommentsRepository extends ServiceEntityRepository
 
 
     public function findAllComments($page, $limit){
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
+
         $qb =  $this->createQueryBuilder('c')
         ->orderBy('c.id', 'DESC')
         ->getQuery()

@@ -19,9 +19,9 @@ security:
             provider: app_user_user
 
             form_login:
-                login_path: security_login
+                login_path: security-login
             logout:
-                path: security_logout
+                path: security-logout
 
             remember_me:
                 secret: '%kernel.secret%'

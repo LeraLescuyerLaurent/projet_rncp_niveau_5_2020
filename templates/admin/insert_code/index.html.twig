@@ -5,10 +5,7 @@
     <h1>ajout d'une section de code</h1>
         <div class="row">
             <section class="  col-14 col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
-                {% for message in app.flashes('success') %}
-                <div class="flash-success">
-                    {{ message }}
-                </div>
+                {% include "/element/_flash_messages.html.twig" %}
             {% endfor %}
             {{ form_start(formInsertCode) }}
             {{ form_row(formInsertCode.langage,{ 'attr' :{'placeholder': "Choisir le langage"} } ) }}

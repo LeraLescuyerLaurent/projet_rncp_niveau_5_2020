@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Posts;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use InvalidArgumentException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -31,6 +32,23 @@ class PostsRepository extends ServiceEntityRepository
      */
     public function FindPostByCategorie($id,$page,$limit )
     { 
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
+
+
         $qb =  $this->createQueryBuilder('p')
             ->andWhere('p.online = :online')
             ->join('p.subCategory', 's')

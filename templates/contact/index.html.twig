@@ -11,17 +11,7 @@
                     <section class="contact col-13 col-m-13 col-l-9 col-xl-9">
                         <div class="row">
                             <h1 class="uppercase">Contactez-moi</h1>
-                            {% for message in app.flashes('success') %}
-                            <div class="flash-success">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                        {% for message in app.flashes('error') %}
-                            <div class="flash-error">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-
+                            {% include "/element/_flash_messages.html.twig" %}
                         <div class="row">
                 {{ form_start(formContact,{ 'attr' :{'id': "contact",'class': 'col-13 col-m-13 col-l-9 col-xl-9'}}) }}
                     {{ form_row(formContact.title,{ 'attr' :{'placeholder': "Votre Email",'label': 'Titre de votre message','class': "col-13 col-m-13 col-l-9 col-xl-9"}})}}

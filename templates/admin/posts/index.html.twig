@@ -2,16 +2,7 @@
 {% block title %}Posts | Liste{% endblock %}
 {% block body %}
     <section class="contentAdmin ">
-      {% for message in app.flashes('success') %}
-        <div class="flash-success">
-            {{ message }}
-        </div>
-      {% endfor %}
-      {% for message in app.flashes('error') %}
-          <div class="flash-error">
-              {{ message }}
-          </div>
-      {% endfor %}
+      {% include "/element/_flash_messages.html.twig" %}
       <table>
         <caption>
           <h1>Liste des Articles</h1>
@@ -40,7 +31,7 @@
               <td>{{ posts.slider}} </td>
               <td>
                   <a href="{{ path('admin-post-edit', {'id': posts.id}) }}" class="btn-success">Edit</a>
-                  <a href="{{ path('admin_post_delete', {'id': posts.id}) }}" class="btn-danger">Delete</a>
+                  <a href="{{ path('admin-post-delete', {'id': posts.id}) }}" class="btn-danger">Delete</a>
               </td>
             </tr>
           {% else %}

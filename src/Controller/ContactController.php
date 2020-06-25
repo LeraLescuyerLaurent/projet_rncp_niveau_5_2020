@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContactController extends AbstractController
@@ -57,6 +58,7 @@ class ContactController extends AbstractController
     
     /**
      *@Route("admin/contact/list/{page}", name="admin-contact-index")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminContactIndex(int $page = 1,ContactRepository $contactRepository): Response
     {
@@ -75,6 +77,7 @@ class ContactController extends AbstractController
 
     /**
      *@Route("admin/contact/lire/{id}", name="admin-contact-lire")
+     *@IsGranted("ROLE_ADMIN")
      */
     public function adminContactShow(int $id,ContactRepository $contactRepository, Request $request,Contact $contact): Response
     {
@@ -101,7 +104,7 @@ class ContactController extends AbstractController
 
     /**
      * @Route("admin/contact/delete/{id}", name="admin-contact-delete")
-     * 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteMessageContact(Contact $contact)
     {

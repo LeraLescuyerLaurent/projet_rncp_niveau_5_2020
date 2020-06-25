@@ -1,16 +1,7 @@
 {% extends "administration.html.twig" %}
 {% block title %}Posts | Edit{% endblock %}
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="flash-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="flash-error">
-            {{ message }}
-        </div>
-    {% endfor %}
+{% include "/element/_flash_messages.html.twig" %}
     <div class="row">
         <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15 col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
             <h1>Ajout d'un article</h1>
@@ -49,11 +40,11 @@
     <script>
         mceEditor.init({
             selector: 'post_content',
-            patch_image: '{{ path("gestion_media", {id : post.mediaToken}) }}' ,
-            patch_insertCode: '{{ path("admin_insert_code") }}' ,
+            patch_image: '{{ path("gadmin-gestion-media", {id : post.mediaToken}) }}' ,
+            patch_insertCode: '{{ path("admin-insert-code") }}' ,
         });
       
-        let image = '{{ path("gestion_media", {id : post.mediaToken}) }}';
+        let image = '{{ path("admin-gestion-media", {id : post.mediaToken}) }}';
     </script>
  
 {% endblock %}

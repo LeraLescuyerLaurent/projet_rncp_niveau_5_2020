@@ -3,11 +3,7 @@
 
 {% block body %}
     <section class="contentAdmin ">
-        {% for message in app.flashes('success') %}
-        <div class="flash-success">
-            {{ message }}
-        </div>
-        {% endfor %}
+      {% include "/element/_flash_messages.html.twig" %}
       <table>
         <caption>
           <h1>Liste des Pages</h1>
@@ -27,8 +23,8 @@
             <td>{{ pages.title}} </td>
             <td>{{ pages.slug}} </td>
             <td>
-                <a href="{{ path('adminPageEdit', {'id': pages.id}) }}" class="btn-success">Edit</a>
-                <a href="{{ path('adminPagesDelete', {'id': pages.id}) }}" class="btn-danger">Delete</a>
+                <a href="{{ path('admin-page-edit', {'id': pages.id}) }}" class="btn-success">Edit</a>
+                <a href="{{ path('admin-pages-delete', {'id': pages.id}) }}" class="btn-danger">Delete</a>
             </td>
           </tr>
         {% else %}

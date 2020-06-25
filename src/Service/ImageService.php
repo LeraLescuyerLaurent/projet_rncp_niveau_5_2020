@@ -7,11 +7,8 @@ namespace App\Service;
  */
 class ImageService{
 
-    private $message;
 
-    public function __construct(){
-       $message = 'hello';
-    }
+
 
     public function createFolder($year,$month,$day,$image)
     {
@@ -49,11 +46,7 @@ class ImageService{
         if ($dimention[0]>($largeur/$hauteur)*$dimention[1]) {$dimY=$hauteur; $dimX=round($hauteur*$dimention[0]/$dimention[1]); }
         if ($dimention[0]<($largeur/$hauteur)*$dimention[1]) {$dimX=$largeur; $dimY=round($largeur*$dimention[1]/$dimention[0]); }
         if ($dimention[0]==($largeur/$hauteur)*$dimention[1]) {$dimX=$largeur; $dimY=$hauteur; }
-// 
-        // if ($dimention[0]>($largeur/$hauteur)*$dimention[1]) {$dimY=$hauteur; $dimX=round($hauteur*$dimention[0]/$dimention[1]); $decalX = ($dimX-$largeur)/2; $decalY=0; }
-        // if ($dimention[0]<($largeur/$hauteur)*$dimention[1]) {$dimY=$largeur; $dimX=round($largeur*$dimention[0]/$dimention[1]);  $decalY = ($dimY-$hauteur)/2; $decalX=0; }
-        // if ($dimention[0]==($largeur/$hauteur)*$dimention[1]) {$dimY=$largeur; $dimX=$hauteur;$decalX=0; $decalY = 0; }
-// 
+
         $miniature = imagecreatetruecolor($hauteur,$largeur);
 
         if ($ext == ".jpg" || $ext == ".JPG" || $ext == ".jpeg" || $ext == ".JPEG" ) { $img = @imagecreatefromjpeg($image);}

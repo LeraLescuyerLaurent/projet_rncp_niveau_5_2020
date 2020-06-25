@@ -3,16 +3,7 @@
 
 <div class="row">
     <section class="  col-14 col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
-        {% for message in app.flashes('success') %}
-        <div class="flash-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="flash-error">
-            {{ message }}
-        </div>
-{% endfor %}
+        {% include "/element/_flash_messages.html.twig" %}
         <h1>ajout d'une image</h1>
         <div class="row">
             {{ form_start(mediaForm,{ 'attr' :{'class': 'media col-14 col-m-14 col-l-13 col-xl-13'}}) }}
@@ -35,9 +26,9 @@
                                                 <div class="content_media  ">
                                                     <h4>{{ image.name }}</h4>
                                                     <div class="info_media ">
-                                                        <a href="{{ path('show_media', {'id' : image.id})}}">Insérer</a>
-                                                        <a href="{{ path('imageUne_media', {'id' : image.id})}}">ImageUne</a>
-                                                        <a href="{{ path('delete_media', {'id' : image.id})}} ">supprimer</a>
+                                                        <a href="{{ path('admin-show-media', {'id' : image.id})}}">Insérer</a>
+                                                        <a href="{{ path('admin-imageUne-media', {'id' : image.id})}}">ImageUne</a>
+                                                        <a href="{{ path('admin-delete-media', {'id' : image.id})}} ">supprimer</a>
                                                     </div>
                                             </div>
                                         </article>

@@ -11,13 +11,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class MediaController extends AbstractController
 {
     /**
-     * @Route("admin/media/{id}", name="gestion_media")
+     * @Route("admin/media/{id}", name="admin-gestion-media")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index($id,Request $request, EntityManagerInterface $manager, MediaRepository $img,ImageService $imgService)
     {
@@ -55,7 +57,6 @@ class MediaController extends AbstractController
                         $prefixe = $k;
                         $taille = explode('x',$v);
                         $imgService->cropImage($uriCrop,$url.DIRECTORY_SEPARATOR. $nomimage.'_'.$prefixe.$ext,$taille[0],$taille[1],$ext); 
-                     
                     }
                     
                     
@@ -87,7 +88,8 @@ class MediaController extends AbstractController
 
 
     /**
-     * @Route("admin/media/imageUne/{id}", name = "imageUne_media")
+     * @Route("admin/media/imageUne/{id}", name = "admin-imageUne-media")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function imageUneInsertInPage($id,Request $request,MediaRepository $em)
     {
@@ -97,7 +99,7 @@ class MediaController extends AbstractController
             $form->handleRequest($request);
                 if ($form->isSubmitted()) {
                     $id = $BddMedia->getId();
-                    return $this->redirectToRoute('insertImageUne',['id' => $id]);
+                    return $this->redirectToRoute('insert-imageUne',['id' => $id]);
                 }
         }
         return $this->render('admin/media/editImageUne.html.twig', [
@@ -106,7 +108,8 @@ class MediaController extends AbstractController
             ]);
     }
     /**
-     * @Route("admin/insertImageUne/{id}", name="insertImageUne")
+     * @Route("admin/insertImageUne/{id}", name="admin-insert-imageUne")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function insertImageUne($id=null,MediaRepository $em)
     {
@@ -117,7 +120,8 @@ class MediaController extends AbstractController
     }
 
         /**
-     * @Route("admin/media/show/{id}", name = "show_media")
+     * @Route("admin/media/show/{id}", name = "admin-show-media")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function insertInPage($id,Request $request,MediaRepository $em)
     {
@@ -131,7 +135,7 @@ class MediaController extends AbstractController
                 if ($form->isSubmitted()) {
                     $id = $mediaBdd->getId();
                     $format = $form->getData()->getFormat();
-                     return $this->redirectToRoute('insertImage',['id' => $id,'format'=>$format]);
+                    return $this->redirectToRoute('admin-insert-image',['id' => $id,'format'=>$format]);
                 }
             return $this->render('admin/media/edit.html.twig', [
                 'FormatsMediaType'=> $form->createView(),
@@ -141,7 +145,8 @@ class MediaController extends AbstractController
         }
     }
     /**
-     * @Route("admin/tinymce/{id}/{format}", name="insertImage")
+     * @Route("admin/tinymce/{id}/{format}", name="admin-insert-image")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function tinymce($id=null,$format,  MediaRepository $em)
     {
@@ -160,7 +165,8 @@ class MediaController extends AbstractController
     }
 
     /**
-     * @Route("admin/media/delete/{id}", name="delete_media")
+     * @Route("admin/media/delete/{id}", name="admin-delete-media")
+     * @IsGranted("ROLE_ADMIN")
      */
     function deleteMedia($id, MediaRepository $media, Request $request,EntityManagerInterface $entityManager,ImageService $imgService)
     {
@@ -182,7 +188,7 @@ class MediaController extends AbstractController
                 $entityManager->remove($m);
                 $entityManager->flush();
             }
-            return $this->redirectToRoute('gestion_media',['id' => $pid]);
+            return $this->redirectToRoute('admin-gestion-media',['id' => $pid]);
             $this->addFlash(
                 'succes',
                 'Votre image a bien été supprimé'

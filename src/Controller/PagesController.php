@@ -7,22 +7,44 @@ use App\Form\PageType;
 use App\Repository\PagesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PagesController extends AbstractController
 {
     /**
-     * @Route("admin/pages", name="adminPagesIndex")
+     * @Route("page/{id}-{slug}", name="page")
+     */
+    public function mentionsLegales(int $id,PagesRepository $pageRepository)
+    {
+        return $this->render('pages/pagesShow.html.twig', ['page' => $pageRepository->findOneBy(['id' => $id])]);
+    }
+
+
+/*******************************
+     *   ELEMENTS   *
+*******************************/
+
+    public function pagesList(PagesRepository $pageRepository){
+        $page =  $pageRepository->findAll();
+        return $this->render('/element/_listePages.html.twig', ['page' => $page]);
+    }
+/*******************************
+     *   ADMINISTRATION   *
+*******************************/
+
+    /**
+     * @Route("admin/pages", name="admin-pages-index")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(PagesRepository $pageRepository)
     {
         return $this->render('admin/pages/index.html.twig', ['pages' => $pageRepository->findAll()]);
     }
 
-
-
     /**
-     * @Route("admin/pages/add", name="adminPagesAdd")
+     * @Route("admin/pages/add", name="admin-pages-add")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function AddPage(PagesRepository $pages,Request $request)
     {
@@ -41,7 +63,7 @@ class PagesController extends AbstractController
                     'success',
                     'Votre page a bien été ajouté'
                 );
-            return $this->redirectToRoute('adminPagesIndex');
+            return $this->redirectToRoute('admin-pages-index');
             }
             return $this->render('admin/pages/add.html.twig', [
                 'pages'=> $pages,
@@ -49,8 +71,9 @@ class PagesController extends AbstractController
             ]);
         }
 
-            /**
-     * @Route("admin/page/edit/{id}", name="adminPageEdit")
+    /**
+     * @Route("admin/page/edit/{id}", name="admin-page-edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminPostEdit(int $id,Request $request, Pages $post,PagesRepository $pageR)
     {
@@ -63,28 +86,17 @@ class PagesController extends AbstractController
                 'success',
                 'Votre article a bien été modifié'
             );
-            return $this->redirectToRoute('adminPagesIndex');
+            return $this->redirectToRoute('admin-pages-index');
         }
         return $this->render('admin/pages/edit.html.twig', [
             'post' => $post,
             'adminEditPage' => $form->createView(),
         ]);
-    }
-    /**
-     * @Route("page/{id}-{slug}", name="page")
-     */
-    public function mentionsLegales(int $id,PagesRepository $pageRepository)
-    {
-        return $this->render('pages/mentions-legales.html.twig', ['page' => $pageRepository->findOneBy(['id' => $id])]);
-    }
+        }
 
-
-    public function pagesList(PagesRepository $pageRepository){
-        $page =  $pageRepository->findAll();
-        return $this->render('/element/_listePages.html.twig', ['page' => $page]);
-    }
     /**
-     * @Route("admin/pages/delete/{id}", name="adminPagesDelete")
+     * @Route("admin/pages/delete/{id}", name="admin-pages-delete")
+     * @IsGranted("ROLE_ADMIN")
      */
         public function delete(Pages $pages)
         {
@@ -95,6 +107,6 @@ class PagesController extends AbstractController
                     'error',
                     'Votre article a bien été supprimé'
                 );
-            return $this->redirectToRoute('adminPagesIndex');
+            return $this->redirectToRoute('admin-pages-index');
         }
 }

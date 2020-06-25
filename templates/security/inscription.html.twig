@@ -7,10 +7,7 @@
     <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15   col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
         <h1>Ajouter un Rédacteur</h1>
         <div class="row">
-            {% for message in app.flashes('success') %}
-                <div class="flash-success">
-                    {{ message }}
-                </div>
+            {% include "/element/_flash_messages.html.twig" %}
             {% endfor %}
             {{ form_start(registration_form,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
                 {{ form_row(registration_form.email,{"label": "Adresse Email", 'attr' :{'placeholder': "Entrer l'adresse Email ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}

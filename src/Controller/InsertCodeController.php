@@ -3,14 +3,16 @@
 namespace App\Controller;
 
 use App\Form\InsertCodeType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class InsertCodeController extends AbstractController
 {
     /**
-     * @Route("admin/insert/code", name="admin_insert_code", methods={"GET","POST"})
+     * @Route("admin/insert/code", name="admin-insert-code", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(Request $request)
     {
@@ -18,13 +20,14 @@ class InsertCodeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $langage = $form->getData()->getLangage();
-            return $this->redirectToRoute('admin_insert_code_final',['langage' => $langage]);
+            return $this->redirectToRoute('admin-insert-code-final',['langage' => $langage]);
         }
         return $this->render('admin/insert_code/index.html.twig', ['formInsertCode'=> $form->createView()]);
     }
 
     /**
-     * @Route("admin/insert/code/finale/{langage}", name="admin_insert_code_final")
+     * @Route("admin/insert/code/finale/{langage}", name="admin-insert-code-final")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function insertCodeFinale($langage=null)
     {

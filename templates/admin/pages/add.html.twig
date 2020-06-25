@@ -2,16 +2,7 @@
 {% block title %}Pages | Add{% endblock %}
 {% block body %}
 <div class="row">
-        {% for message in app.flashes('success') %}
-        <div class="flash-success">
-            {{ message }}
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="flash-error">
-            {{ message }}
-        </div>
-    {% endfor %}
+    {% include "/element/_flash_messages.html.twig" %}
         <section class="contentAdmin  col-15 col-m-15 col-l-15 col-xl-15  col-push-1 col-m-push-1 col-l-push-1 col-xl-push-1">
             <h1>Ajout d'une page</h1>
             <div class="row">
@@ -38,7 +29,7 @@
     <script>
         mceEditor.init({
             selector: 'page_content',
-            patch_insertCode: '{{ path("admin_insert_code") }}' ,
+            patch_insertCode: '{{ path("admin-insert-code") }}' ,
         });
         function send_to_editor(content){
             ed =mceEditorField.document

@@ -18,9 +18,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 
-/**
- * LoginFormAuthenticator
- */
+
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
 
@@ -41,7 +39,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
      */
     public function supports(Request $request): ?bool
     {
-        return $request->attributes->get('_route') === "security_login"
+        return $request->attributes->get('_route') === "security-login"
         && $request->isMethod('POST');
     }
 
@@ -100,6 +98,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         $request->getSession()->getFlashBag()->add('error', "Invalid credentials");
-        return new RedirectResponse($this->urlGenerator->generate('security_login'));
+        return new RedirectResponse($this->urlGenerator->generate('security-login'));
     }
     }

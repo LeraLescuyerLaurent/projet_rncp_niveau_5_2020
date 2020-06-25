@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Comments;
 use App\Repository\CommentsRepository;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CommentsController extends AbstractController
 {    
     /**
      * adminCatgoriesIndex
-     *@Route("admin/comments/index/{page}", name="adminCommentIndex")
+     *@Route("admin/comments/index/{page}", name="admin-comment-index")
+     *@IsGranted("ROLE_ADMIN")
      */
     public function adminCommentsIndex(int $page = 1,CommentsRepository $commentsRepository): Response
     {
@@ -22,7 +22,7 @@ class CommentsController extends AbstractController
         $pagination = array(
             'page' => $page,
             'nbPages' => ceil(count($comments) / $nbCommentsByPage),
-            'nomRoute' => 'adminCommentIndex',
+            'nomRoute' => 'admin-comment-index',
             );
         return $this->render('admin/comments/index.html.twig', [
             'comments' => $comments,
@@ -34,7 +34,7 @@ class CommentsController extends AbstractController
 
     /**
      * adminCommentShow
-     *@Route("admin/comments/show/{id}", name="adminCommentShow")
+     *@Route("admin/comments/show/{id}", name="admin-comment-show")
      */
     public function adminCommentsShow(int $id,CommentsRepository $commentsRepository)
     {
@@ -43,7 +43,8 @@ class CommentsController extends AbstractController
 
     
     /**
-     * @Route("admin/comments/remove/{id}", name="adminCommentDelete")
+     * @Route("admin/comments/remove/{id}", name="admin-comment-delete")
+     * @IsGranted("ROLE_ADMIN")
      * 
      */
     public function remove(int $id,CommentsRepository $commentsRepository)
@@ -57,6 +58,6 @@ class CommentsController extends AbstractController
                 'le commentaire a bien été supprimé'
             );
 
-        return $this->redirectToRoute('adminCommentIndex');
+        return $this->redirectToRoute('admin-comment-index');
     }
 }

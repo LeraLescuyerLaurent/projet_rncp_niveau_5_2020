@@ -8,6 +8,7 @@ use App\Repository\CategoriesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoriesController extends AbstractController
@@ -26,6 +27,7 @@ class CategoriesController extends AbstractController
     // ADMINISTRATION des CATEGORIE
     /**
      * @Route("admin/categories/{page}", name="admin-index-categories")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminCatgoriesIndex(int $page = 1,CategoriesRepository $categoryRepository): Response
     {
@@ -46,6 +48,7 @@ class CategoriesController extends AbstractController
 
     /**    
      * @Route("admin/categories/add", name="admin-category-add")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminCategoryAdd(Request $request)
     {
@@ -74,6 +77,7 @@ class CategoriesController extends AbstractController
 
     /**
      * @Route("admin/category/edit/{id}", name="admin-category-edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function adminCategoryEdit(Request $request, Categories $category)
     {
@@ -98,7 +102,7 @@ class CategoriesController extends AbstractController
     
     /**
      * @Route("admin/category/delete/{id}", name="admin-category-delete")
-     * 
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete( Categories $category)
     {
