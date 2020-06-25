@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 class PostsController extends AbstractController
 {
@@ -51,7 +52,7 @@ class PostsController extends AbstractController
         $explodeTiret = explode("-", $explodeSlash[3]);
         $categorie = $explodeTiret[1];
 
-        $nbArticleByPage = 2;
+        $nbArticleByPage = 10;
 
         $CategorieOfPost =$postRepository->FindPostByCategorie($id , $page, $nbArticleByPage);
 
@@ -78,7 +79,7 @@ class PostsController extends AbstractController
         if (!$subCategorie) {
             404;
         }
-        $nbArticleByPage = 1;
+        $nbArticleByPage = 10;
         $PostsBySubCategorie =  $postRepository->findBySubCategorie($id,$page,$nbArticleByPage);
         $pagination = array(
             'page' => $page,
@@ -155,6 +156,29 @@ class PostsController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("articles/recherche/{page}", name="recherche-article")
+     */
+    public function recherche(Request $request,PostsRepository $postRepository,int $page =1)
+    { 
+        
+
+        $r = $request->request->get('recherche');
+        $limit = 10;
+        $q = $postRepository->findSearch($r,$page,$limit);
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($q) / $limit),
+            'nomRoute' => 'recherche-article',
+        );
+        return $this->render('/recherches/recherche.html.twig', [
+            'controller_name' => 'PostsController',
+            'recherches' => $q,
+            'pagination' => $pagination,
+            'r'  => $r
+        ]);
+    }
 /*******************************
      *   ELEMENTS   *
 *******************************/
@@ -165,12 +189,14 @@ class PostsController extends AbstractController
         return $this->render('/element/_slideShow.html.twig', ['slides' => $slider]);
     }
 
-    public function countPostsByCategorie(PostsRepository $postRepository) {
+    public function countPostsByCategorie(PostsRepository $postRepository): Response
+    {
         $post = $postRepository->countPostsOfCategorie();     
         return $this->render('/element/_countPostsByCategorie.html.twig', ['posts' => $post]);
     }
 
-    public function countPostsOfSubCategorieForCategorie(PostsRepository $postRepository) {
+    public function countPostsOfSubCategorieForCategorie(PostsRepository $postRepository): Response
+    {
         $url =  $_SERVER['REQUEST_URI'];
         $parseUrl =parse_url($url, PHP_URL_PATH);
         $explodeSlash = explode("/", $parseUrl);
@@ -187,7 +213,8 @@ class PostsController extends AbstractController
         ]);
     }
 
-    public function countPostsBySubCategorieForSubcategorie(PostsRepository $postRepository,SubCategoriesRepository $subcategorie) {
+    public function countPostsBySubCategorieForSubcategorie(PostsRepository $postRepository,SubCategoriesRepository $subcategorie): Response
+    {
         $url =  $_SERVER['REQUEST_URI'];
         $parseUrl =parse_url($url, PHP_URL_PATH);
         $explodeSlash = explode("/", $parseUrl);
@@ -207,7 +234,8 @@ class PostsController extends AbstractController
     }
 
 
-    public function PopulairePosts(PostsRepository $postRepository){
+    public function PopulairePosts(PostsRepository $postRepository): Response
+    {
         $limit = 5;
         $post =  $postRepository->findBy(
                 ["online" => true],
@@ -215,6 +243,12 @@ class PostsController extends AbstractController
                 $limit);
         return $this->render('/element/_populaire_posts.html.twig', ['posts' => $post]);
     }
+
+
+
+
+
+
 
 /*******************************
      *   ADMINISTRATION   *
@@ -314,6 +348,7 @@ class PostsController extends AbstractController
             );
         return $this->redirectToRoute('admin-post-index');
     }
+
 
 
 

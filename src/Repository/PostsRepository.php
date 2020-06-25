@@ -73,6 +73,22 @@ class PostsRepository extends ServiceEntityRepository
 
     public function findBySubCategorie($id,$page,$limit)
     {
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
+
         $qb =  $this->createQueryBuilder('p')
         ->andWhere('p.online = :online')
         ->andWhere('p.subCategory = :val')
@@ -146,6 +162,22 @@ public function UpdatePointsOfPost($id,$points)
 }
 
 public function findAllPost($page, $limit){
+    if (!is_numeric($page)) {
+        throw new InvalidArgumentException(
+            'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+        );
+    }
+
+    if ($page < 1) {
+        throw new NotFoundHttpException('La page demandée n\'existe pas');
+    }
+
+    if (!is_numeric($limit)) {
+        throw new InvalidArgumentException(
+            'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+        );
+    }
+
     $qb =  $this->createQueryBuilder('p')
     ->orderBy('p.id', 'DESC')
     ->getQuery()
@@ -161,6 +193,41 @@ if ( ($paginator->count() <= $premierResultat) && $page != 1) {
 return $paginator;
 }
 
+public function findSearch($r,$page,$limit)
+{
+    if (!is_numeric($page)) {
+        throw new InvalidArgumentException(
+            'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+        );
+    }
+
+    if ($page < 1) {
+        throw new NotFoundHttpException('La page demandée n\'existe pas');
+    }
+
+    if (!is_numeric($limit)) {
+        throw new InvalidArgumentException(
+            'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+        );
+    }
+    $qb =  $this->createQueryBuilder('p')
+        ->where('p.title LIKE :val')
+        ->orWhere('p.slug LIKE :val')
+        ->orWhere('p.hat LIKE :val')
+        ->orWhere('p.content LIKE :val')
+        ->setParameter("val", '%'.$r.'%')
+        -> getQuery()
+    ;
+    $premierResultat = ($page - 1) * $limit;
+    $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+    $paginator = new Paginator($qb);
+
+    if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+        throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+    }
+    return $paginator;
+    
+}
     // /**
     //  * @return Posts[] Returns an array of Posts objects
     //  */

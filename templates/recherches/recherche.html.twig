@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipsAndNews | index{% endblock %}
+{% block stylesheetsPage %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <section class="container col-14  col-m-14 col-l-14 col-xl-14 col-l-push-1 col-m-push-1 col-push-1 col-xl-push-1">
+        <p>
+            <h1>Les résultats pour la recherche <span>"{{ r }}"</span></h1>
+        </p>
+        <main>
+            <div class=" principal col-14 col-m-14 col-l-10 col-xl-9">
+           
+                <div class="row">
+                    {% for recherche in recherches %}
+                    <article class="card col-14 col-m-14 col-l-5 col-xl-3">
+                        <div class="image_card">
+                            <img src="{{ recherche.imagesUne }}" alt="">
+                        </div>
+                        <div class="content">
+                            <h1>{{ recherche.title }}</h1>
+                            <div class="info_article">
+                                {{ recherche.createdAt | date }} <span class="text_{{ recherche.subCategory.categories }}">{{ recherche.subCategory.categories }}</span> 
+                                    {% if  recherche.comments | length ==1  %}
+                                            ({{ recherche.comments | length }} Commentaire)
+                                    {% elseif  recherche.comments | length > 1  %}
+                                            ({{ recherche.comments | length }} Commentaires)
+                                    {% endif %}
+                            </div>
+                            <p>
+                                {{ recherche.hat | slice(0, 100) }} ...
+                            </p>
+                            <button><a href="{{ path('show-article',{'categorie':  recherche.subCategory.categories.name, 'id': recherche.id, 'slug': recherche.slug })}}" class="btn btn_{{ recherche.subCategory.categories }} textWhite">read more</a></button>
+                        </div>
+                    </article>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="pagination" >
+                            {% include 'element/_paginator.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </main>
+
+{% endblock %}
