@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 class PostsController extends AbstractController
 {
@@ -26,6 +25,7 @@ class PostsController extends AbstractController
      */
     public function index (PostsRepository $postsRepository): Response
     {
+    
         $limit = 10;
         $post =  $postsRepository->findBy(['slider' => false, "online" => true],
                 ['createdAt' => 'DESC'],
