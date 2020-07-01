@@ -22,13 +22,11 @@ class Categories
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Unique(message = "Ce slug existe déjà")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=60)
-     * @Assert\Unique(message = "Cette catégorie existe déjà")
      */
     private $slug;
 

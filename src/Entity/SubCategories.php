@@ -22,13 +22,11 @@ class SubCategories
     /**
      * @ORM\Column(type="string", length=50)
      * @Assert\NotBlank(message = "Veuillez saisir un titre à votre catégorie")
-     * @Assert\Unique(message = "Cette sous-catégorie existe déjà")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=60)
-     * @Assert\Unique(message = "Ce slug existe déjà pour une autre sous catégorie ")
      */
     private $slug;
 
