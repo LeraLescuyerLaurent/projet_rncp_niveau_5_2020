@@ -28,19 +28,13 @@
                                     ({{ PostShow.comments | length }} Commentaires)
                                 {% endif %}
                         </div>
+                        <div class="sharethis-inline-reaction-buttons"></div>
                         <div class="hat">
                             <p> {{ PostShow.hat | raw}}</p>
                         </div>
-                        {{ PostShow.content | raw}}
+                        {{ PostShow.content | markdown_to_html}}
                     </article>
-                    <aside class="partage col-14 col-m-12 col-l-10 col-xl-12">
-                        <h4 class="uppercase">Partage l'article sur les réseaux sociaux </h4>
-                        <div class="resaux col-14 col-m-12 col-l-10">
-                            <span class="circle facebook center_icon col-1 height-1 col-l-1 height-l-1   "><a href=""><i class="fab fa-facebook-f "></i></a></span>
-                            <span class="circle twiter center_icon col-1 height-1 col-l-1 height-l-1   "><a href=""><i class="fab fa-twitter"></i></a></span>
-                            <span class="circle linkedin center_icon col-1 height-1 col-l-1 height-l-1  "><a href=""><i class="fab fa-linkedin-in"></i></a></span>
-                        </div>
-                    </aside>
+                   
                     <aside class="comments col-14 col-m-12 col-l-10 col-xl-12">
                         <div class="row">
                             <h2 class="uppercase">Ajouter un commentaires</h2>

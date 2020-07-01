@@ -14,7 +14,7 @@
                     {{ form_row(formaEditPost.hat,{ 'attr' :{'placeholder': "Chapeau de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14 height-4 height-m-2 height-l-1'},'label':'Chapeau (max 250 Charactères)'})}}
                     {{ form_row(formaEditPost.imagesUne,{ 'attr' :{'placeholder': "click pour ajouter une image",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
                     
-                    <div data-mdeditor>{{ form_row(formaEditPost.content,{ 'attr' :{'name':'content'}})}}</div>
+                    <div data-mdeditor>{{ form_row(formaEditPost.content,{ 'attr' :{'name':'content', 'id':'postContent'}})}}</div>
                     <div class="btn_radio_form_admin">
                         {{ form_row(formaEditPost.online,{ 'attr' :{'class':'groupeform'}})}}
                         {{ form_row(formaEditPost.slider,{ 'attr' :{'class':'groupeform'}})}}
@@ -43,6 +43,8 @@
     <script>
       
         let image = '{{ path("admin-gestion-media", {id : post.mediaToken}) }}';
+
+       
     </script>
  
 {% endblock %}

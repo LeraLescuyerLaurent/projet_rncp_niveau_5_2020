@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class PostsController extends AbstractController
 {
     /**
@@ -103,9 +104,8 @@ class PostsController extends AbstractController
      */
     public function PostsShow (int $id,PostsRepository $postRepository,Posts $post,Request $request,CommentsRepository $commentRepo): Response
     {
-        if (!$post) {
-            404;
-        }
+      
+       
         $PostShow =  $postRepository->findOneBy(['id' => $id]); 
 
         /** COMMENTAIRES */
@@ -182,6 +182,7 @@ class PostsController extends AbstractController
 /*******************************
      *   ELEMENTS   *
 *******************************/
+
     public function slideShow(PostsRepository $postsRepository): Response
     {
         $slider = $postsRepository->findBy(['slider' => true],

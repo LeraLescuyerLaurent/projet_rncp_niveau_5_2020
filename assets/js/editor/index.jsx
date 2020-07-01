@@ -31,7 +31,7 @@ export default class Editor extends Component {
 
    
 
-    render ({name}, {content, editor}){
+    render ({name}, {content, editor,markdown}){
        
         let classe = 'mdeditor'
         return <div class={classe}>
@@ -76,8 +76,8 @@ export default class Editor extends Component {
             <div class="mdeditor__preview">
                 <Markdown markdown={content || 'Votre article ici !!'}/>
             </div>
-            <textarea name={name} style="display:none;">
-                { content }
+            <textarea name={name} id='postContent' style="display:none;">
+            { content }
             </textarea>
         </div>
       

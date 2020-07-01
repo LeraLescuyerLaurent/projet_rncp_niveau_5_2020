@@ -4,7 +4,7 @@ namespace App\Entity;
 
 
 
-class InsertCode
+class FormatsMedia
 {
 
 
