@@ -20,14 +20,12 @@ class Pages
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message = "Veuillez saisir un titre à votre page")
-     * @Assert\Unique(message = "Cete page existe déjà")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotNull( message = "Veuillez saisir un slug à votre page")
-     * @Assert\Unique(message = "Ce slug existe déjà")
      */
     private $slug;
 

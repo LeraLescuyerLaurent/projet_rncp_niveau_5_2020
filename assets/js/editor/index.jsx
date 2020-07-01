@@ -2,9 +2,10 @@ import { h,Component } from "preact";
 import CodeMirror from './codemirror'
 import Markdown from './Markdown'
 import './style.scss';
+import './prism.js';
 import BoldButton from "./Buttons/BoldButton";
 import ItalicButton from "./Buttons/ItalicButton";
-import SpeechButton from "./Buttons/SpeechButton";
+import SpeechButton from "./Buttons/SpeechButton";   
 import HunButton from "./Buttons/HunButton";
 import HdeuxButton from "./Buttons/HdeuxButton"
 import HtroisButton from "./Buttons/HtroisButton"
@@ -14,6 +15,10 @@ import ArrayButton from "./Buttons/ArrayButton"
 import ListOlButton from "./Buttons/ListOlButton"
 import ListUlButton from "./Buttons/ListUlButton"
 import ImageButton from "./Buttons/ImageButton"
+import LinkButton from "./Buttons/LinkButton"
+import QoteButton from "./Buttons/QoteButton"
+import HorizontalRuleButton from "./Buttons/HorizontalRuleButton"
+import CodeButton from "./Buttons/CodeButton"
 
 
 export default class Editor extends Component {
@@ -59,7 +64,11 @@ export default class Editor extends Component {
                         <ListUlButton editor={editor}/>
                     ]} |
                     {editor && [
-                        <ImageButton editor={editor}/>
+                        <ImageButton editor={editor}/>,
+                        <LinkButton editor={editor}/>,
+                        <QoteButton editor={editor}/>,
+                        <HorizontalRuleButton editor={editor}/>,
+                        <CodeButton editor={editor}/>
                     ]}
                     
 

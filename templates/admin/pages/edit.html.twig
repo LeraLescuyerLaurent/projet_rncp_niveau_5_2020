@@ -9,8 +9,9 @@
             {{ form_start(adminEditPage,{ 'attr' :{'class': 'col-14 col-m-14 col-l-14 col-xl-14'}}) }}
             {{ form_row(adminEditPage.title,{ 'attr' :{'placeholder': "Titre de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
             {{ form_row(adminEditPage.slug,{ 'attr' :{'placeholder': "Slug de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
-            {{ form_row(adminEditPage.content,{ 'attr' :{'class': 'col-14 col-m-14 col-l-14 col-xl-14 height-4 height-m-2 height-l-1'}})}}
-            <button class="uppercase primaire btn">envoyer</button> 
+            <div data-mdeditor>
+                {{ form_row(adminEditPage.content)}}</div>
+            <button class="btn_validation_fom_admin_post uppercase primaire btn">envoyer</button> 
             {{ form_end(adminEditPage) }}
         </div>
     </section>  
@@ -23,18 +24,10 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="/dist/js/eventFormSubCategorie.js"></script>
-    <script src="/dist/js/mce/mce.js"></script>
-    <script src="/dist/js/closeModal.js"></script>
+<script src="/dist/js/closeModal.js"></script>
+<script src="/dist/js/imageUne.js"></script>
+<script src="/dist/js/scriptImage.js"></script>
     <script>
-        mceEditor.init({
-            selector: 'page_content',
-            patch_insertCode: '{{ path("admin-insert-code") }}' ,
-        });
-        function send_to_editor(content){
-            ed =mceEditorField.document
-            console.log(ed,content)
-            ed.execCommand('insertHTML',true,content); 
-        }
+
     </script>
 {% endblock %}

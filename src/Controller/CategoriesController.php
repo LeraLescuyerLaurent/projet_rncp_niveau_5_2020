@@ -26,12 +26,11 @@ class CategoriesController extends AbstractController
 
     // ADMINISTRATION des CATEGORIE
     /**
-     * @Route("admin/categories/{page}", name="admin-index-categories")
+     * @Route("admin/categories/", name="admin-index-categories")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function adminCatgoriesIndex(int $page = 1,CategoriesRepository $categoryRepository): Response
+    public function adminCatgoriesIndex(int $page = 1,CategoriesRepository $categoryRepository)
     {
-    
         $nbCatgoriesByPage = 10;
         $categorie = $categoryRepository->findAllCategorie($page, $nbCatgoriesByPage);
 
