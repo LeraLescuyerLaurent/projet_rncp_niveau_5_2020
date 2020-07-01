@@ -1,7 +1,5 @@
-
 function send_to_editor(content){
-    ed =mceEditorField.document
-    ed.execCommand('insertHTML',true,content); 
+    IMAGE = content
 }
 function send_to_imageUne(content){
     ed =document.querySelector('#post_imagesUne')

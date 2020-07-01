@@ -13,10 +13,14 @@
                     {{ form_row(formaEditPost.subCategory)}}
                     {{ form_row(formaEditPost.hat,{ 'attr' :{'placeholder': "Chapeau de l'article",'class': 'col-14 col-m-14 col-l-14 col-xl-14 height-4 height-m-2 height-l-1'},'label':'Chapeau (max 250 Charactères)'})}}
                     {{ form_row(formaEditPost.imagesUne,{ 'attr' :{'placeholder': "click pour ajouter une image",'class': 'col-14 col-m-14 col-l-14 col-xl-14'}})}}
-                    {{ form_row(formaEditPost.content)}}
-                    {{ form_row(formaEditPost.online,{ 'attr' :{'class':'groupeform'}})}}
-                    {{ form_row(formaEditPost.slider,{ 'attr' :{'class':'groupeform'}})}}
-                    <button class="uppercase primaire btn">envoyer</button> 
+                    
+                    <div data-mdeditor>{{ form_row(formaEditPost.content,{ 'attr' :{'name':'content'}})}}</div>
+                    <div class="btn_radio_form_admin">
+                        {{ form_row(formaEditPost.online,{ 'attr' :{'class':'groupeform'}})}}
+                        {{ form_row(formaEditPost.slider,{ 'attr' :{'class':'groupeform'}})}}
+                    </div>
+
+                    <button class="btn_validation_fom_admin_post uppercase primaire btn">envoyer</button> 
                 {{ form_end(formaEditPost) }}
             </div>
         </section>  
@@ -24,7 +28,7 @@
 
 
 
-        
+    <input type="hidden" name="" id="patch_image" value="{{ path("admin-gestion-media", {id : post.mediaToken}) }}">    
 <div id="modal" class="modal modalNone">
     <div id="closeModal" class="close" onclick = "addClass()">
         x
@@ -33,16 +37,10 @@
 {% endblock %}
 {% block javascripts %}
     <script src="/dist/js/eventFormSubCategorie.js"></script>
-    <script src="/dist/js/mce/mce.js"></script>
     <script src="/dist/js/closeModal.js"></script>
     <script src="/dist/js/imageUne.js"></script>
     <script src="/dist/js/scriptImage.js"></script>
     <script>
-        mceEditor.init({
-            selector: 'post_content',
-            patch_image: '{{ path("gadmin-gestion-media", {id : post.mediaToken}) }}' ,
-            patch_insertCode: '{{ path("admin-insert-code") }}' ,
-        });
       
         let image = '{{ path("admin-gestion-media", {id : post.mediaToken}) }}';
     </script>

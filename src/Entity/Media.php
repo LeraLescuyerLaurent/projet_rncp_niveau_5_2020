@@ -47,7 +47,8 @@ class Media
      * @ORM\Column(type="string", length=255)
      */
     private $alt;
-        
+    
+    private $format; 
     /**
      * getId
      *

@@ -21,13 +21,13 @@ class Posts
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique(message = "Ce titre existe déjà sur un autre article")
+     * 
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Unique(message = "Ce slug existe déjà sur un autre article")
+     * 
      */
     private $slug;
 
@@ -115,7 +115,7 @@ class Posts
      * @param  mixed $title
      * @return self
      */
-    public function setTitle(string $title): self
+    public function setTitle(string $title): ?self
     {
         $this->title = $title;
 
@@ -138,7 +138,7 @@ class Posts
      * @param  mixed $slug
      * @return self
      */
-    public function setSlug(string $slug): self
+    public function setSlug(string $slug): ?self
     {
         $this->slug = $slug;
 

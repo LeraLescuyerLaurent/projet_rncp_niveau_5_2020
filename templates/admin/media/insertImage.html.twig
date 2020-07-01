@@ -1,7 +1,6 @@
 {% extends 'modale.html.twig' %} 
 {% block body %}
 
-<script src="/dist/js/mce/mce.js"></script>
 <script>
 	var win = window.dialogArguments || opener || parent || top;
 	win.send_to_editor('<p><img src="{{urlImage}}" alt="{{ name }}"></p><br/>');
