@@ -14,16 +14,19 @@
                     {{ form_row(adminAddPost.subCategory)}}
                     {{ form_row(adminAddPost.hat,{ 'attr' :{'placeholder': "Chapeau de l'article",'class': 'col-13 col-m-13 col-l-13 col-xl-13 height-4 height-m-2 height-l-1'},'label':'Chapeau (max 250 Charactères)'})}}
                     {{ form_row(adminAddPost.imagesUne,{ 'attr' :{'placeholder': "click pour ajouter une image",'class': 'col-13 col-m-13 col-l-13 col-xl-13'}})}}
-                    <div data-mdeditor>{{ form_row(adminAddPost.content,{ 'attr' :{'name':'post_content'}})}}</div>
+                    <div data-mdeditor>
+                        {{ form_row(adminAddPost.content)}}</div>
                     <div class="btn_radio_form_admin">
                         {{ form_row(adminAddPost.online,{ 'attr' :{'class':'groupeform'}})}}
                         {{ form_row(adminAddPost.slider,{ 'attr' :{'class':'groupeform'}})}}
                     </div>
+
                     <button class="btn_validation_fom_admin_post uppercase primaire btn">envoyer</button> 
                 {{ form_end(adminAddPost) }}
             </div>
         </section>  
     </div>    
+    <input type="hidden" name="" id="patch_image" value="{{ path("admin-gestion-media", {id : token}) }}" >
 <div id="modal" class="modal modalNone">
     <div id="closeModal" class="close" onclick = "addClass()">
         x

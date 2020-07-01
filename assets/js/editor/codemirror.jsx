@@ -7,8 +7,8 @@ import 'codemirror/theme/neo.css'
 export default class CodeMirrorComponent extends Component{
 
     render ({name, value}){
-        return  
-    }
+        return <div/>
+    } 
 
     shouldComponentUpdate(){
         return false
