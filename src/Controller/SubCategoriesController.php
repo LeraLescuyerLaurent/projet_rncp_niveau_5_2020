@@ -18,9 +18,9 @@ class SubCategoriesController extends AbstractController
      *   ADMINISTRATION   *
 *******************************/
     /**
-     * @Route("admin/sous-categorie/{page}", name="admin-index-subcategorie")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/sous-categorie/{page}", name="admin-index-subcategorie")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminSubCategoriesindex(int $page = 1,SubCategoriesRepository $subCategoriesRepository): Response
     {
         $nbSubCategoriesByPage =10;
@@ -33,12 +33,13 @@ class SubCategoriesController extends AbstractController
         return $this->render('admin/sub-categories/index.html.twig', [
             'categories' =>$subCategory,
             'pagination' => $pagination
-            ]);
+        ]);
     }
+
     /**    
-     * @Route("admin/sous-categories/add", name="admin-sub-categories-add")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/sous-categories/add", name="admin-sub-categories-add")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminSubCategoryAdd(Request $request)
     {
         $category = new SubCategories();
@@ -65,9 +66,9 @@ class SubCategoriesController extends AbstractController
     }
 
     /**
-     * @Route("admin/sous-category/edit/{id}", name="admin-sub-categories-edit")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/sous-category/edit/{id}", name="admin-sub-categories-edit")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminSubCategoryEdit(Request $request, SubCategories $category)
     { 
         $form = $this->createForm(SubCategoryType::class, $category);
@@ -94,9 +95,9 @@ class SubCategoriesController extends AbstractController
     }
 
     /**
-     * @Route("admin/sous-category/delete/{id}", name="admin-sub-categories-delete")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/sous-category/delete/{id}", name="admin-sub-categories-delete")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminSubCategoryDelete( SubCategories $category)
     {
             $entityManager = $this->getDoctrine()->getManager();

@@ -1,0 +1,16 @@
+[03-Jul-2020 22:07:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:27
+Stack trace:
+#0 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(27): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(22): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', '', Array)
+#2 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(362): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', '', Array)
+#3 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(428): Doctrine\DBAL\Connection->connect()
+#4 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(388): Doctrine\DBAL\Connection->getDatabasePlatformVersion()
+#5 /home/c1416393c/ in /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 93
+[03-Jul-2020 22:08:08 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[28000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php:27
+Stack trace:
+#0 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOConnection.php(27): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/PDOMySql/Driver.php(22): Doctrine\DBAL\Driver\PDOConnection->__construct('mysql:host=127....', 'root', '', Array)
+#2 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(362): Doctrine\DBAL\Driver\PDOMySql\Driver->connect(Array, 'root', '', Array)
+#3 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(428): Doctrine\DBAL\Connection->connect()
+#4 /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Connection.php(388): Doctrine\DBAL\Connection->getDatabasePlatformVersion()
+#5 /home/c1416393c/ in /home/c1416393c/public_html/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/AbstractMySQLDriver.php on line 93

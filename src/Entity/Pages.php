@@ -18,20 +18,20 @@ class Pages
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull( message = "Veuillez saisir un titre à votre page")
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotNull( message = "Veuillez saisir un titre à votre page")
+    */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotNull( message = "Veuillez saisir un slug à votre page")
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotNull( message = "Veuillez saisir un slug à votre page")
+    */
     private $slug;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="text")
+    */
     private $content;
 
     public function getId(): ?int
@@ -75,7 +75,8 @@ class Pages
         return $this;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->title;
         return $this->slug;
     }

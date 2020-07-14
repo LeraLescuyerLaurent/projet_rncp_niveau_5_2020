@@ -34,7 +34,7 @@
                         </div>
                         {{ PostShow.content | markdown_to_html}}
                     </article>
-                   
+                    
                     <aside class="comments col-14 col-m-12 col-l-10 col-xl-12">
                         <div class="row">
                             <h2 class="uppercase">Ajouter un commentaires</h2>
@@ -42,10 +42,9 @@
                                 {{ form_row(commentForm.pseudo,{ 'attr' :{'class': "col-14 col-m-14 col-l-11 col-xl-8 ", "id":"pseudo","name":"pseudo"},'value': ''})}}
                                 {{ form_row(commentForm.email,{ 'attr' :{'class': "col-14 col-m-14 col-l-11 col-xl-8 ", "id":"email","name":"email"},'value': ''})}}
                                 {{ form_row(commentForm.comment,{ 'attr' :{'class': "col-14 col-m-13 col-l-9 col-xl-8 height-xl-3 height-3 height-m-2 height-l-2", "id":"comment","name":"comment"},'value': ''})}}
-                            </div>
+                        </div>
                             <button class="uppercase primaire btn" aria-label="Poster Commentaire">Poster</button>
-                            {{ form_end(commentForm) }}
-                            
+                        {{ form_end(commentForm) }}
                     </aside>
                     <aside class="comments_list col-14 col-m-14 col-l-10 col-xl-8">
                         <h2 class="uppercase">Liste des commentaires</h2>

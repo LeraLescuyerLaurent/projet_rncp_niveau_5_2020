@@ -304,17 +304,6 @@ class Media extends \App\Entity\Media implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function __toString()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, '__toString', []);
-
-        return parent::__toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getFormat()
     {
 
@@ -332,6 +321,17 @@ class Media extends \App\Entity\Media implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setFormat', [$format]);
 
         return parent::setFormat($format);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function __toString()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, '__toString', []);
+
+        return parent::__toString();
     }
 
 }

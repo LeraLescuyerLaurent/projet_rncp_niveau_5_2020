@@ -14,8 +14,6 @@ return [
     'admin-contact-index' => [['page'], ['page' => 1, '_controller' => 'App\\Controller\\ContactController::adminContactIndex'], [], [['variable', '/', '[^/]++', 'page', true], ['text', '/admin/contact/list']], [], []],
     'admin-contact-lire' => [['id'], ['_controller' => 'App\\Controller\\ContactController::adminContactShow'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/contact/lire']], [], []],
     'admin-contact-delete' => [['id'], ['_controller' => 'App\\Controller\\ContactController::deleteMessageContact'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/contact/delete']], [], []],
-    'admin-insert-code' => [[], ['_controller' => 'App\\Controller\\InsertCodeController::index'], [], [['text', '/admin/insert/code']], [], []],
-    'admin-insert-code-final' => [['langage'], ['langage' => null, '_controller' => 'App\\Controller\\InsertCodeController::insertCodeFinale'], [], [['variable', '/', '[^/]++', 'langage', true], ['text', '/admin/insert/code/finale']], [], []],
     'admin-gestion-media' => [['id'], ['_controller' => 'App\\Controller\\MediaController::index'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/media']], [], []],
     'admin-imageUne-media' => [['id'], ['_controller' => 'App\\Controller\\MediaController::imageUneInsertInPage'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/media/imageUne']], [], []],
     'admin-insert-imageUne' => [['id'], ['id' => null, '_controller' => 'App\\Controller\\MediaController::insertImageUne'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/admin/insertImageUne']], [], []],

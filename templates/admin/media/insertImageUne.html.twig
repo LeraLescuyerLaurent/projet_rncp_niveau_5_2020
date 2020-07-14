@@ -1,7 +1,5 @@
 {% extends 'modale.html.twig' %} 
 {% block body %}
-<div id="imagefinale"><img src="{{media.url}}" alt="{{ media.name }}"></div>
-<script src="/dist/js/mce/mce.js"></script>
 <script>
 	var win = window.dialogArguments || opener || parent || top;
 	win.send_to_imageUne('{{media.url}}'  );

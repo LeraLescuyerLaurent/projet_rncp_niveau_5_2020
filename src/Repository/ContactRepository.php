@@ -44,15 +44,15 @@ class ContactRepository extends ServiceEntityRepository
         $qb =  $this->createQueryBuilder('c')
         ->orderBy('c.id', 'DESC')
         ->getQuery()
-    ;
-    $premierResultat = ($page - 1) * $limit;
-    $qb->setFirstResult($premierResultat)->setMaxResults($limit);
-    $paginator = new Paginator($qb);
-    
-    if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-    }
-    return $paginator;
+        ;
+        $premierResultat = ($page - 1) * $limit;
+        $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+        $paginator = new Paginator($qb);
+        
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+        return $paginator;
     }  
 
     // **

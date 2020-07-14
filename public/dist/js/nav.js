@@ -1,15 +1,17 @@
 $(document).ready(function() {
-    $('.menu-toggle').on('click', function() {
+    $('i.menu-toggle').click(function(){
         $('.nav').toggleClass('showin');
-    })
-    $('#madmin').on('click', function() {
-        $('.admin').toggleClass('showin')
-    })
-    $('#sidebare-icone').on('click', function() {
+    });
+    
+    $('#madmin').click(function(){
+        $('.admin').toggleClass('showin');
+    });
+
+    $('#madmin').click(function(){
         $('#sidebare-right').toggleClass('on')
         $('main').toggleClass('activeMain')
-    })
-    $('#close-sidebare-right').on('click', function() {
+    });
+    $('#close-sidebare-right').click(function(){
         $('#sidebare-right').toggleClass('on')
         $('main').toggleClass('activeMain')
     })

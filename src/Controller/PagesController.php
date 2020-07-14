@@ -13,8 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PagesController extends AbstractController
 {
     /**
-     * @Route("page/{id}-{slug}", name="page")
-     */
+    * @Route("page/{id}-{slug}", name="page")
+    */
     public function mentionsLegales(int $id,PagesRepository $pageRepository)
     {
         return $this->render('pages/pagesShow.html.twig', ['page' => $pageRepository->findOneBy(['id' => $id])]);
@@ -25,7 +25,8 @@ class PagesController extends AbstractController
      *   ELEMENTS   *
 *******************************/
 
-    public function pagesList(PagesRepository $pageRepository){
+    public function pagesList(PagesRepository $pageRepository)
+    {
         $page =  $pageRepository->findAll();
         return $this->render('/element/_listePages.html.twig', ['page' => $page]);
     }
@@ -34,18 +35,18 @@ class PagesController extends AbstractController
 *******************************/
 
     /**
-     * @Route("admin/pages", name="admin-pages-index")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/pages", name="admin-pages-index")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function index(PagesRepository $pageRepository)
     {
         return $this->render('admin/pages/index.html.twig', ['pages' => $pageRepository->findAll()]);
     }
 
     /**
-     * @Route("admin/pages/add", name="admin-pages-add")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/pages/add", name="admin-pages-add")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function AddPage(PagesRepository $pages,Request $request)
     {
 
@@ -55,26 +56,26 @@ class PagesController extends AbstractController
 
         $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid() ) {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($pages);
-                $entityManager->flush();
-                $this->addFlash(
-                    'success',
-                    'Votre page a bien été ajouté'
-                );
-            return $this->redirectToRoute('admin-pages-index');
-            }
-            return $this->render('admin/pages/add.html.twig', [
-                'pages'=> $pages,
-                'adminAddPage' => $form->createView()
-            ]);
+        if ($form->isSubmitted() && $form->isValid() ) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($pages);
+            $entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Votre page a bien été ajouté'
+            );
+        return $this->redirectToRoute('admin-pages-index');
         }
+        return $this->render('admin/pages/add.html.twig', [
+            'pages'=> $pages,
+            'adminAddPage' => $form->createView()
+        ]);
+    }
 
     /**
-     * @Route("admin/page/edit/{id}", name="admin-page-edit")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/page/edit/{id}", name="admin-page-edit")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminPostEdit(int $id,Request $request, Pages $post,PagesRepository $pageR)
     {
         $page = $pageR->find(['id'=>$id]);
@@ -92,21 +93,21 @@ class PagesController extends AbstractController
             'post' => $post,
             'adminEditPage' => $form->createView(),
         ]);
-        }
+    }
 
     /**
-     * @Route("admin/pages/delete/{id}", name="admin-pages-delete")
-     * @IsGranted("ROLE_ADMIN")
-     */
-        public function delete(Pages $pages)
-        {
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($pages);
-                $entityManager->flush();
-                $this->addFlash(
-                    'error',
-                    'Votre article a bien été supprimé'
-                );
-            return $this->redirectToRoute('admin-pages-index');
-        }
+    * @Route("admin/pages/delete/{id}", name="admin-pages-delete")
+    * @IsGranted("ROLE_ADMIN")
+    */
+    public function delete(Pages $pages)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($pages);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'Votre article a bien été supprimé'
+        );
+        return $this->redirectToRoute('admin-pages-index');
+    }
 }

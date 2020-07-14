@@ -10,12 +10,12 @@
                     <div class="info_post_sidebare col-5  col-l-3 col-xl-4">
                         <h6 class="text_red">{{ post.title }}</h6>
                         <div class="info_post">
-                            {{ post.createdAt | date("d/m/Y", "Europe/Paris")  }} <br><span class="text_{{ post.subCategory.categories }}">{{ post.subCategory.categories}}</span>
+                            {{ post.createdAt | date("d/m/Y", "Europe/Paris")  }} <br>
+                            <span class="text_{{ post.subCategory.categories }}">{{ post.subCategory.categories}}</span>
                         </div>
                     </div>
                 </div>
             </a>
         </article>
     {% endfor %}
-  
 </aside>

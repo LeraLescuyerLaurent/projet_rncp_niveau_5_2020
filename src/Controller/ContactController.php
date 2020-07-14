@@ -17,8 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContactController extends AbstractController
 {
     /**
-     * @Route("/contact", name="contact")
-     */
+    * @Route("/contact", name="contact")
+    */
     public function addMessageContact(Request $request)
     {
         $contact = new Contact();
@@ -57,9 +57,9 @@ class ContactController extends AbstractController
     // ADMINISTRATION DES MESSAGE DE CONTACT
     
     /**
-     *@Route("admin/contact/list/{page}", name="admin-contact-index")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    *@Route("admin/contact/list/{page}", name="admin-contact-index")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminContactIndex(int $page = 1,ContactRepository $contactRepository): Response
     {
         $nbContactsByPage = 10;
@@ -76,9 +76,9 @@ class ContactController extends AbstractController
     }
 
     /**
-     *@Route("admin/contact/lire/{id}", name="admin-contact-lire")
-     *@IsGranted("ROLE_ADMIN")
-     */
+    *@Route("admin/contact/lire/{id}", name="admin-contact-lire")
+    *@IsGranted("ROLE_ADMIN")
+    */
     public function adminContactShow(int $id,ContactRepository $contactRepository, Request $request,Contact $contact): Response
     {
         $contact = $contactRepository->find(['id'=>$id]);
@@ -103,18 +103,18 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("admin/contact/delete/{id}", name="admin-contact-delete")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/contact/delete/{id}", name="admin-contact-delete")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function deleteMessageContact(Contact $contact)
     {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($contact);
-            $entityManager->flush();
-            $this->addFlash(
-                'error',
-                'Le message a bien été supprimé'
-            );
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($contact);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'Le message a bien été supprimé'
+        );
         return $this->redirectToRoute('admin-contact-index');
     }
 

@@ -14,8 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoriesController extends AbstractController
 {
     /**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-     * return les categories dans le fragment _header.html.twig
-     */
+    * return les categories dans le fragment _header.html.twig
+    */
     public function header(CategoriesRepository $category): Response
     {
         $categories = $category->findAll();
@@ -24,11 +24,14 @@ class CategoriesController extends AbstractController
         ]);
     }
 
-    // ADMINISTRATION des CATEGORIE
+    /*******************************
+    * ADMINISTRATION des CATEGORIE*
+    *******************************/
+
     /**
-     * @Route("admin/categories/", name="admin-index-categories")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/categories/", name="admin-index-categories")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminCatgoriesIndex(int $page = 1,CategoriesRepository $categoryRepository)
     {
         $nbCatgoriesByPage = 10;
@@ -41,14 +44,14 @@ class CategoriesController extends AbstractController
             );
         return $this->render('admin/categories/index.html.twig', [
             'categories' => $categorie,
-            'pagination'=> $pagination
+            'renderagination'=> $pagination
         ]);
     }
 
     /**    
-     * @Route("admin/categories/add", name="admin-category-add")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/categories/add", name="admin-category-add")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminCategoryAdd(Request $request)
     {
         $category = new Categories();
@@ -75,9 +78,9 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("admin/category/edit/{id}", name="admin-category-edit")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/category/edit/{id}", name="admin-category-edit")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminCategoryEdit(Request $request, Categories $category)
     {
         $form = $this->createForm(CategoryType::class, $category);
@@ -100,18 +103,18 @@ class CategoriesController extends AbstractController
     }
     
     /**
-     * @Route("admin/category/delete/{id}", name="admin-category-delete")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/category/delete/{id}", name="admin-category-delete")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function delete( Categories $category)
     {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($category);
-            $entityManager->flush();
-            $this->addFlash(
-                'error',
-                'La catégorie a bien été supprimé'
-            );
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($category);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'La catégorie a bien été supprimé'
+        );
 
         return $this->redirectToRoute('admin-index-categories');
     }

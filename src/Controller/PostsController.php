@@ -22,11 +22,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PostsController extends AbstractController
 {
     /**
-     * @Route("/", name="index-site")
-     */
+    * @Route("/", name="index-site")
+    */
     public function index (PostsRepository $postsRepository): Response
     {
-    
         $limit = 10;
         $post =  $postsRepository->findBy(['slider' => false, "online" => true],
                 ['createdAt' => 'DESC'],
@@ -39,8 +38,8 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("post/categorie/{id}-{slug}/{page}", name="liste-articles-par-categorie")
-     */
+    * @Route("post/categorie/{id}-{slug}/{page}", name="liste-articles-par-categorie")
+    */
     public function PostsByCategorie ($slug,int $page =1,int $id,PostsRepository $postRepository,Categories $categorie): Response
     {
         if (!$categorie) {
@@ -73,8 +72,8 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("post/sous-categorie/{id}-{slug}/{page}", name="liste-articles-par-sous-categorie")
-     */
+    * @Route("post/sous-categorie/{id}-{slug}/{page}", name="liste-articles-par-sous-categorie")
+    */
     public function PostsBySubCategorie ($slug,int $page =1,int $id,PostsRepository $postRepository,SubCategories $subCategorie): Response
     {
         if (!$subCategorie) {
@@ -100,12 +99,10 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("post/{categorie}/show/{id}-{slug}", name="show-article")
-     */
+    * @Route("post/{categorie}/show/{id}-{slug}", name="show-article")
+    */
     public function PostsShow (int $id,PostsRepository $postRepository,Posts $post,Request $request,CommentsRepository $commentRepo): Response
     {
-      
-       
         $PostShow =  $postRepository->findOneBy(['id' => $id]); 
 
         /** COMMENTAIRES */
@@ -116,37 +113,34 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $date = new DateTime();
-            $form->getData()->setCreatedAt($date);
-            $form->getData()->setPostId($PostShow);
+        $date = new DateTime();
+        $form->getData()->setCreatedAt($date);
+        $form->getData()->setPostId($PostShow);
 
-            $pseudo = $form->getData()->getPseudo();
-            $pseudoTrim = trim($pseudo);
-            $pseudoStripTags = strip_tags($pseudoTrim);
-            $pseudoStripslashes = stripslashes($pseudoStripTags);
-            $pseudoFinal = htmlspecialchars($pseudoStripslashes);
-            $form->getData()->setPseudo($pseudoFinal);
+        $pseudo = $form->getData()->getPseudo();
+        $pseudoTrim = trim($pseudo);
+        $pseudoStripTags = strip_tags($pseudoTrim);
+        $pseudoStripslashes = stripslashes($pseudoStripTags);
+        $pseudoFinal = htmlspecialchars($pseudoStripslashes);
+        $form->getData()->setPseudo($pseudoFinal);
 
-            $comment = $form->getData()->getcomment();
-            $commentTrim = trim($comment);
-            $commentStripTags = strip_tags($commentTrim);
-            $commentStripslashes = stripslashes($commentStripTags);
-            $commentFinal = htmlspecialchars($commentStripslashes);
-            $form->getData()->setComment($commentFinal);
+        $comment = $form->getData()->getcomment();
+        $commentTrim = trim($comment);
+        $commentStripTags = strip_tags($commentTrim);
+        $commentStripslashes = stripslashes($commentStripTags);
+        $commentFinal = htmlspecialchars($commentStripslashes);
+        $form->getData()->setComment($commentFinal);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($commentaire);
-            $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($commentaire);
+        $entityManager->flush();
         }
 
         $commentaires = $commentRepo->findBy(['postId' => $id],['createdAt' => 'DESC']);
 
-
         /**  NB VISITEURS ARTICLES */
-            $pointsPost = $PostShow->getPoints() +1;
-            $postRepository->UpdatePointsOfPost($id,$pointsPost);
-
-
+        $pointsPost = $PostShow->getPoints() +1;
+        $postRepository->UpdatePointsOfPost($id,$pointsPost);
 
         return $this->render('/posts/postShow.html.twig', [
             'controller_name' => 'PostsController',
@@ -156,13 +150,11 @@ class PostsController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route("articles/recherche/{page}", name="recherche-article")
-     */
+    * @Route("articles/recherche/{page}", name="recherche-article")
+    */
     public function recherche(Request $request,PostsRepository $postRepository,int $page =1)
     { 
-        
 
         $r = $request->request->get('recherche');
         $limit = 10;
@@ -245,20 +237,14 @@ class PostsController extends AbstractController
         return $this->render('/element/_populaire_posts.html.twig', ['posts' => $post]);
     }
 
-
-
-
-
-
-
 /*******************************
      *   ADMINISTRATION   *
 *******************************/
     
     /**
-     * @Route("admin/posts/{page}", name="admin-post-index")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/posts/{page}", name="admin-post-index")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminPostsIndex(int $page = 1,PostsRepository $postsRepository)
     {
         $nbArticleByPage = 10;
@@ -271,13 +257,13 @@ class PostsController extends AbstractController
         return $this->render('admin/posts/index.html.twig', [
             'posts' => $posts,
             'pagination'=>$pagination
-            ]);
+        ]);
     }
 
     /**
-     * @Route("admin/post/add", name="admin-post-add") 
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/post/add", name="admin-post-add") 
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function addPost(Request $request)
     {
         $token = md5(\uniqid(microtime(),true).time());
@@ -309,10 +295,11 @@ class PostsController extends AbstractController
             'token'=> $token,
         ]);
     }
+
     /**
-     * @Route("admin/post/edit/{id}", name="admin-post-edit")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/post/edit/{id}", name="admin-post-edit")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function adminPostEdit(int $id,Request $request, Posts $post,PostsRepository $postR)
     {
         $post = $postR->find(['id'=>$id]);
@@ -335,18 +322,18 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("admin/post/delete/{id}", name="admin-post-delete")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/post/delete/{id}", name="admin-post-delete")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function delete(Posts $post)
     {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($post);
-            $entityManager->flush();
-            $this->addFlash(
-                'error',
-                'Votre article a bien été supprimé'
-            );
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($post);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'Votre article a bien été supprimé'
+        );
         return $this->redirectToRoute('admin-post-index');
     }
 

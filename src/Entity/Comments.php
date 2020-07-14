@@ -11,47 +11,50 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Comments
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    * @ORM\Id()
+    * @ORM\GeneratedValue()
+    * @ORM\Column(type="integer")
+    */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     *  @Assert\Length(
-     *      min = 5,
-     *      max = 25,
-     *      minMessage = "Your pseudo must be at least {{ limit }} characters long",
-     *      maxMessage = "Your pseudo cannot be longer than {{ limit }} characters",
-     *      allowEmptyString = false
-     * )
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotNull( message = "Veuillez entrer un pseudo pour valider votre commentaire")
+    *  @Assert\Length(
+    *      min = 5,
+    *      max = 25,
+    *      minMessage = "Your pseudo must be at least {{ limit }} characters long",
+    *      maxMessage = "Your pseudo cannot be longer than {{ limit }} characters",
+    *      allowEmptyString = false
+    * )
+    */
     private $pseudo;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * 
-     *@Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email."
-     * )
-     */
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotNull( message = "Veuillez entrer un email pour valider votre commentaire")
+    * @Assert\Email(
+    *     message = "The email '{{ value }}' is not a valid email."
+    * )
+    */
     private $email;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
+    * @ORM\Column(type="datetime")
+    *
+    */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="text")
-     */
+    * @ORM\Column(type="text")
+    * @Assert\NotNull( message = "Veuillez d'entrer votre message")
+    */
     private $comment;
 
     /**
-     * 
-     * @ORM\ManyToOne(targetEntity=Posts::class, inversedBy="comments")
-     */
+    * 
+    * @ORM\ManyToOne(targetEntity=Posts::class, inversedBy="comments")
+    */
     private $postId;
 
     public function getId(): ?int

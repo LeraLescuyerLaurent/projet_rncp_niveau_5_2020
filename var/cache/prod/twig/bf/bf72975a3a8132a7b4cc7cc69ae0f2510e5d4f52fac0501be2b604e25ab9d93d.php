@@ -61,7 +61,7 @@ class __TwigTemplate_af3de33df698013e9184b9b77578b39a0dd420345bfb2025732eacdb37f
         // line 18
         echo "    </head>
     <body>
-        ";
+            ";
         // line 20
         echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\CategoriesController::header"));
         echo "
@@ -69,23 +69,23 @@ class __TwigTemplate_af3de33df698013e9184b9b77578b39a0dd420345bfb2025732eacdb37f
         // line 21
         $this->displayBlock('body', $context, $blocks);
         // line 22
-        echo "            <section class=\"sidebare col-14 col-m-14 col-l-4 col-xl-4 \">
-                <aside class=\"recherche col-14 col-m-14 col-l-4 col-xl-4\">
-                    <label for=\"recherche\" >
-                        <h6 class=\" bold uppercase \" >Rechercher</h6>
-                    </label>
-                    <form action=\" ";
+        echo "                <section class=\"sidebare col-14 col-m-14 col-l-4 col-xl-4 \">
+                    <aside class=\"recherche col-14 col-m-14 col-l-4 col-xl-4\">
+                        <label for=\"recherche\" >
+                            <h6 class=\" bold uppercase \" >Rechercher</h6>
+                        </label>
+                        <form action=\" ";
         // line 27
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("recherche-article");
         echo " \" method=\"POST\">
-                        <input type=\"text\" name=\"recherche\" id=\"search\" placeholder=\"Rechercher\" class=\"col-13 col-m-13 col-l-3 col-xl-3 \" autocomplete=\"off\" >
-                        <button class=\"col-1 col-m-1 col-l-1 col-xl-1 search\" aria-label=\"Search\"><i class=\"fas fa-search\"></i></button>
-                    </form>
-                </aside>
-                <aside class=\"profil  col-14 col-m-14 col-l-4 col-xl-4\">
-                    <div class=\"profil_image col-2 height-2 col-m-2 height-m-2 col-l-2 height-l-2 col-l-center  col-xl-2  col-xl-center height-xl-2  \">
-                        <img src=\"/dist/images/logo.png\" alt=\"image profil\">
-                    </div>
+                            <input type=\"text\" name=\"recherche\" id=\"search\" placeholder=\"Rechercher\" class=\"col-13 col-m-13 col-l-3 col-xl-3 \" autocomplete=\"off\" >
+                            <button class=\"col-1 col-m-1 col-l-1 col-xl-1 search\" aria-label=\"Search\"><i class=\"fas fa-search\"></i></button>
+                        </form>
+                    </aside>
+                    <aside class=\"profil  col-14 col-m-14 col-l-4 col-xl-4\">
+                        <div class=\"profil_image col-2 height-2 col-m-2 height-m-2 col-l-2 height-l-2 col-l-center  col-xl-2  col-xl-center height-xl-2  \">
+                            <img src=\"/dist/images/logo.png\" alt=\"image profil\">
+                        </div>
                         <div class=\"info_profil col-11 col-m-11 col-l-4 col-xl-3 col-xl-center\">
                             <h2>LERA LESCUYER Laurent</h2>
                             <h4>Développeur Web</h4>
@@ -93,56 +93,52 @@ class __TwigTemplate_af3de33df698013e9184b9b77578b39a0dd420345bfb2025732eacdb37f
                                 Développeur web HTML, CSS , Js, PHP, Java .
                             </p>
                         </div>
-                </aside>
-                <aside class=\"sociaux_general col-14 col-m-14 col-l-4 col-xl-4\">
-                    <h6 class=\"uppercase\">rejoint nous sur nos réseau sociaux</h6>
-                    <div class=\"resaux col-14 col-l-4 col-xl-5\">
-                        <div class=\"sharethis-inline-follow-buttons\"></div>
-                    </div>
-                </aside>
-
-
-                            ";
-        // line 52
+                    </aside>
+                    <aside class=\"sociaux_general col-14 col-m-14 col-l-4 col-xl-4\">
+                        <h6 class=\"uppercase\">rejoint nous sur nos réseau sociaux</h6>
+                        <div class=\"resaux col-14 col-l-4 col-xl-5\">
+                            <div class=\"sharethis-inline-follow-buttons\"></div>
+                        </div>
+                    </aside>
+                    ";
+        // line 50
         $this->displayBlock('cat', $context, $blocks);
-        // line 53
-        echo "                            ";
+        // line 51
+        echo "                    ";
         $this->displayBlock('subcat', $context, $blocks);
-        // line 54
-        echo "                            ";
+        // line 52
+        echo "                    ";
         echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\PostsController::PopulairePosts"));
         echo "
-
-
-            </section>
+                </section>
             </section>
         </div>
         <footer>
             <p>
-            ";
-        // line 62
+                ";
+        // line 58
         echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\PagesController::pagesList"));
         echo "
-            <a href=\"";
-        // line 63
+                <a href=\"";
+        // line 59
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("contact");
         echo "\">contact</a>
-        </p>
+            </p>
             <p>
                 2020 © copyright Laurent Lera Lescuyer tips and news
             </p>
         </footer>
         ";
-        // line 69
+        // line 65
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackScriptTags("index");
         echo "
         <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>
         <script src=\"/dist/js/nav.js\"></script>
         <script src=\"/dist/js/monscript.js\"></script>
         ";
-        // line 73
+        // line 69
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 74
+        // line 70
         echo "    </body>
 </html>
 ";
@@ -176,20 +172,20 @@ class __TwigTemplate_af3de33df698013e9184b9b77578b39a0dd420345bfb2025732eacdb37f
         $macros = $this->macros;
     }
 
-    // line 52
+    // line 50
     public function block_cat($context, array $blocks = [])
     {
         $macros = $this->macros;
         echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("App\\Controller\\PostsController::countPostsByCategorie"));
     }
 
-    // line 53
+    // line 51
     public function block_subcat($context, array $blocks = [])
     {
         $macros = $this->macros;
     }
 
-    // line 73
+    // line 69
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -207,11 +203,11 @@ class __TwigTemplate_af3de33df698013e9184b9b77578b39a0dd420345bfb2025732eacdb37f
 
     public function getDebugInfo()
     {
-        return array (  193 => 73,  187 => 53,  180 => 52,  174 => 21,  170 => 17,  166 => 15,  163 => 14,  159 => 13,  152 => 6,  146 => 74,  144 => 73,  137 => 69,  128 => 63,  124 => 62,  112 => 54,  109 => 53,  107 => 52,  79 => 27,  72 => 22,  70 => 21,  66 => 20,  62 => 18,  60 => 13,  50 => 6,  43 => 1,);
+        return array (  189 => 69,  183 => 51,  176 => 50,  170 => 21,  166 => 17,  162 => 15,  159 => 14,  155 => 13,  148 => 6,  142 => 70,  140 => 69,  133 => 65,  124 => 59,  120 => 58,  110 => 52,  107 => 51,  105 => 50,  79 => 27,  72 => 22,  70 => 21,  66 => 20,  62 => 18,  60 => 13,  50 => 6,  43 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("", "base.html.twig", "/var/www/html/projet_rncp_niveau_5/templates/base.html.twig");
+        return new Source("", "base.html.twig", "/home/lera/Bureau/projet_rncp_niveau_5/templates/base.html.twig");
     }
 }

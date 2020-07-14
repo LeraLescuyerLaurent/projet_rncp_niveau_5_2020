@@ -10,7 +10,7 @@
     </aside>
     <aside class="profil  col-14 col-m-14 col-l-4 col-xl-4">
         <div class="profil_image col-2 height-2 col-m-2 height-m-2 col-l-2 height-l-2 col-l-center  col-xl-2  col-xl-center height-xl-2  ">
-            <img src="/dist/images/logo.png" alt="image profil">
+            <img src="/public/dist/images/logo.png" alt="image profil">
         </div>
             <div class="info_profil col-11 col-m-11 col-l-4 col-xl-3 col-xl-center">
                 <h2>LERA LESCUYER Laurent</h2>
@@ -26,10 +26,7 @@
             <div class="sharethis-inline-follow-buttons"></div>
         </div>
     </aside>
-                {% block cat %}{{ render(controller('App\\Controller\\PostsController::countPostsByCategorie') ) }}{% endblock %}
+                {% block cat %}{{ render( controller( 'App\\Controller\\PostsController::countPostsByCategorie') ) }}{% endblock %}
                 {% block subcat %}{% endblock %}
                 {{ render(controller('App\\Controller\\PostsController::PopulairePosts') ) }}
-
-                
-    
 </section>

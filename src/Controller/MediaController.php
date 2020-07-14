@@ -18,9 +18,9 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class MediaController extends AbstractController
 {
     /**
-     * @Route("admin/media/{id}", name="admin-gestion-media")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/media/{id}", name="admin-gestion-media")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function index($id,Request $request, EntityManagerInterface $manager, MediaRepository $img,ImageService $imgService)
     {
         $token =$id;
@@ -32,14 +32,12 @@ class MediaController extends AbstractController
             
             $data = $form->get('url')->getData();
             $ext = '.'.pathinfo($data->getClientOriginalName(), PATHINFO_EXTENSION);
-          
+
             $annee = date('Y');
             $mois = date('m');
             $day = date("d");
             $imgService->createFolder($annee,$mois,$day,$image);
 
-            
-            
             $url = $image. DIRECTORY_SEPARATOR . $annee . DIRECTORY_SEPARATOR . $mois . DIRECTORY_SEPARATOR . $day;
             
             $slugger = new AsciiSlugger();
@@ -58,12 +56,8 @@ class MediaController extends AbstractController
                         $taille = explode('x',$v);
                         $imgService->cropImage($uriCrop,$url.DIRECTORY_SEPARATOR. $nomimage.'_'.$prefixe.$ext,$taille[0],$taille[1],$ext); 
                     }
-                    
-                    
                 }
             } catch (FileException $e) {}
-            
-            
             
             $name = htmlspecialchars($media->getName());
             $media->setName($name);
@@ -83,14 +77,15 @@ class MediaController extends AbstractController
         return $this->render('admin/media/index.html.twig', [
             'mediaForm' => $form->createView(),
             'images' => $img,
-        ]);
+            ]
+        );
+
     }
 
-
     /**
-     * @Route("admin/media/imageUne/{id}", name = "admin-imageUne-media")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/media/imageUne/{id}", name = "admin-imageUne-media")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function imageUneInsertInPage($id,Request $request,MediaRepository $em)
     {
         if($id){
@@ -99,7 +94,7 @@ class MediaController extends AbstractController
             $form->handleRequest($request);
                 if ($form->isSubmitted()) {
                     $id = $BddMedia->getId();
-                    return $this->redirectToRoute('insert-imageUne',['id' => $id]);
+                    return $this->redirectToRoute('admin-insert-imageUne',['id' => $id]);
                 }
         }
         return $this->render('admin/media/editImageUne.html.twig', [
@@ -107,22 +102,21 @@ class MediaController extends AbstractController
             'media' => $BddMedia,
             ]);
     }
+
     /**
      * @Route("admin/insertImageUne/{id}", name="admin-insert-imageUne")
      * @IsGranted("ROLE_ADMIN")
      */
     public function insertImageUne($id=null,MediaRepository $em)
     {
-
-            $BddMedia= $em->find(['id' => $id]);
-
+        $BddMedia= $em->find(['id' => $id]);
         return $this->render('admin/media/insertImageUne.html.twig', ['media' => $BddMedia]);
     }
 
-        /**
-     * @Route("admin/media/show/{id}", name = "admin-show-media")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    /**
+    * @Route("admin/media/show/{id}", name = "admin-show-media")
+    * @IsGranted("ROLE_ADMIN")
+    */
     public function insertInPage($id,Request $request,MediaRepository $em)
     {
         if($id){
@@ -144,24 +138,27 @@ class MediaController extends AbstractController
                 ]);
         }
     }
+
     /**
      * @Route("admin/tinymce/{id}/{format}", name="admin-insert-image")
      * @IsGranted("ROLE_ADMIN")
      */
     public function tinymce($id=null,$format,  MediaRepository $em)
     {
-            $format =$format;
-            $BddMedia= $em->find(['id' => $id]);
-            $url = $BddMedia->getUrl();
-            $name = $BddMedia->getName();
-            $explode = explode('.',$url);
-            $prefix = $explode[0];
-            $ext = $explode[1];
-            $image = $prefix.$format.'.'.$ext;
+        $format =$format;
+        $BddMedia= $em->find(['id' => $id]);
+        $url = $BddMedia->getUrl();
+        $name = $BddMedia->getName();
+        $explode = explode('.',$url);
+        $prefix = $explode[0];
+        $ext = $explode[1];
+        $image = $prefix.$format.'.'.$ext;
+
         return $this->render('admin/media/insertImage.html.twig', [
-            'name' => $name,
-            'urlImage' => $image,
-            ]);
+        'name' => $name,
+        'urlImage' => $image,
+            ]
+        );
     }
 
     /**
@@ -193,7 +190,7 @@ class MediaController extends AbstractController
                 'succes',
                 'Votre image a bien été supprimé'
             );
-          echo  "Le fichier $file existe.";
+
         } else {
             $this->addFlash(
                 'error',

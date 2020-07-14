@@ -63,10 +63,12 @@ class __TwigTemplate_5d03621ea2fa54e23470aaf1e4187416934adefbe85d4a6807141d2a170
                             ";
             // line 13
             echo twig_escape_filter($this->env, twig_date_format_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "createdAt", [], "any", false, false, false, 13), "d/m/Y", "Europe/Paris"), "html", null, true);
-            echo " <br><span class=\"text_";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["post"], "subCategory", [], "any", false, false, false, 13), "categories", [], "any", false, false, false, 13), "html", null, true);
+            echo " <br>
+                            <span class=\"text_";
+            // line 14
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["post"], "subCategory", [], "any", false, false, false, 14), "categories", [], "any", false, false, false, 14), "html", null, true);
             echo "\">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["post"], "subCategory", [], "any", false, false, false, 13), "categories", [], "any", false, false, false, 13), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["post"], "subCategory", [], "any", false, false, false, 14), "categories", [], "any", false, false, false, 14), "html", null, true);
             echo "</span>
                         </div>
                     </div>
@@ -78,7 +80,7 @@ class __TwigTemplate_5d03621ea2fa54e23470aaf1e4187416934adefbe85d4a6807141d2a170
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 20
+        // line 21
         echo "  
 </aside>
 ";
@@ -96,11 +98,11 @@ class __TwigTemplate_5d03621ea2fa54e23470aaf1e4187416934adefbe85d4a6807141d2a170
 
     public function getDebugInfo()
     {
-        return array (  82 => 20,  65 => 13,  60 => 11,  54 => 8,  48 => 5,  45 => 4,  41 => 3,  37 => 1,);
+        return array (  84 => 21,  69 => 14,  65 => 13,  60 => 11,  54 => 8,  48 => 5,  45 => 4,  41 => 3,  37 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("", "/element/_populaire_posts.html.twig", "/var/www/html/projet_rncp_niveau_5/templates/element/_populaire_posts.html.twig");
+        return new Source("", "/element/_populaire_posts.html.twig", "/home/lera/Bureau/projet_rncp_niveau_5/templates/element/_populaire_posts.html.twig");
     }
 }

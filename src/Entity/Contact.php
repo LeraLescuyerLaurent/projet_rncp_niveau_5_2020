@@ -6,64 +6,64 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
- */
+* @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
+*/
 class Contact
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    * @ORM\Id()
+    * @ORM\GeneratedValue()
+    * @ORM\Column(type="integer")
+    */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * 
-     *@Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email."
-     * )
-     */
+    * @ORM\Column(type="string", length=255)
+    * 
+    *@Assert\Email(
+    *     message = "The email '{{ value }}' is not a valid email."
+    * )
+    */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 50,
-     *      minMessage = "Votre nom doit contenir au minimum{{ limit }} characteres",
-     *      maxMessage = "Votre Nom doit contenir au maximum {{ limit }} characteres",
-     *      allowEmptyString = false
-     * )
-     *  
-     * @Assert\NotNull( message = "merci d'entrer Votre nom")
-     */
+    * @ORM\Column(type="string", length=50)
+    * @Assert\Length(
+    *      min = 2,
+    *      max = 50,
+    *      minMessage = "Votre nom doit contenir au minimum{{ limit }} characteres",
+    *      maxMessage = "Votre Nom doit contenir au maximum {{ limit }} characteres",
+    *      allowEmptyString = false
+    * )
+    *  
+    * @Assert\NotNull( message = "merci d'entrer Votre nom")
+    */
     private $name;
 
     /**
-     * @ORM\Column(type="text")
-     * @Assert\NotNull( message = "Veuillez saisir un message")
-     */
+    * @ORM\Column(type="text")
+    * @Assert\NotNull( message = "Veuillez saisir un message")
+    */
     private $content;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
+    * @ORM\Column(type="boolean", nullable=true)
+    */
     private $lu;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
+    * @ORM\Column(type="datetime")
+    */
     private $createdAt;
 
     /**
     * @ORM\Column(type="string", length=150)
-    *  @Assert\Length(
-    *      min = 2,
-    *      max = 150,
-    *      minMessage = "Le titre doit contenir au minimum{{ limit }} characteres",
-    *      maxMessage = "Le titre doit contenir au maximum {{ limit }} characteres",
-    *      allowEmptyString = false
+    * @Assert\Length(
+    *    min = 2,
+    *    max = 150,
+    *    minMessage = "Le titre doit contenir au minimum{{ limit }} characteres",
+    *    maxMessage = "Le titre doit contenir au maximum {{ limit }} characteres",
+    *    allowEmptyString = false
     * )
     *  
     * @Assert\NotNull( message = "Veuillez d'entrer un titre à votre message")

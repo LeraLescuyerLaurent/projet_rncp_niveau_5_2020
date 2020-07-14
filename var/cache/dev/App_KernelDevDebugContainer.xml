@@ -77,8 +77,6 @@
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">App_KernelDevDebugContainer</parameter>
-    <parameter key="container.dumper.inline_class_loader">true</parameter>
-    <parameter key="container.dumper.inline_factories">true</parameter>
     <parameter key="upload_directory">/var/www/html/projet_rncp_niveau_5/public/dist/images</parameter>
     <parameter key="delete_directory">/var/www/html/projet_rncp_niveau_5/public</parameter>
     <parameter key="event_dispatcher.event_aliases" type="collection">
@@ -404,9 +402,6 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\FormatsMediaType" class="App\Form\FormatsMediaType" autowire="true" autoconfigure="true">
-      <tag name="form.type"/>
-    </service>
-    <service id="App\Form\InsertCodeType" class="App\Form\InsertCodeType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\MediaType" class="App\Form\MediaType" autowire="true" autoconfigure="true">
@@ -917,7 +912,6 @@
         <argument>App\Form\CommentType</argument>
         <argument>App\Form\ContactType</argument>
         <argument>App\Form\FormatsMediaType</argument>
-        <argument>App\Form\InsertCodeType</argument>
         <argument>App\Form\MediaType</argument>
         <argument>App\Form\PageType</argument>
         <argument>App\Form\PostType</argument>
@@ -1266,7 +1260,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id=".service_locator.qzlDsU9"/>
+      <argument type="service" id=".service_locator.Gke8dq3"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5468,7 +5462,6 @@
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType" on-invalid="ignore_uninitialized"/>
         <argument key="App\Form\ContactType" type="service" id="App\Form\ContactType" on-invalid="ignore_uninitialized"/>
         <argument key="App\Form\FormatsMediaType" type="service" id="App\Form\FormatsMediaType" on-invalid="ignore_uninitialized"/>
-        <argument key="App\Form\InsertCodeType" type="service" id="App\Form\InsertCodeType" on-invalid="ignore_uninitialized"/>
         <argument key="App\Form\MediaType" type="service" id="App\Form\MediaType" on-invalid="ignore_uninitialized"/>
         <argument key="App\Form\PageType" type="service" id="App\Form\PageType" on-invalid="ignore_uninitialized"/>
         <argument key="App\Form\PostType" type="service" id="App\Form\PostType" on-invalid="ignore_uninitialized"/>
@@ -5596,7 +5589,7 @@
         <argument key="annotations.reader" type="service" id="annotations.reader" on-invalid="ignore_uninitialized"/>
         <argument key="argument_metadata_factory" type="service" id="argument_metadata_factory" on-invalid="ignore_uninitialized"/>
         <argument key="argument_resolver" type="service" id="debug.argument_resolver" on-invalid="ignore_uninitialized"/>
-        <argument key="argument_resolver.controller_locator" type="service" id=".service_locator.L3ckXRp" on-invalid="ignore_uninitialized"/>
+        <argument key="argument_resolver.controller_locator" type="service" id=".service_locator.vttkb2x" on-invalid="ignore_uninitialized"/>
         <argument key="argument_resolver.default" type="service" id="debug.argument_resolver.default" on-invalid="ignore_uninitialized"/>
         <argument key="argument_resolver.not_tagged_controller" type="service" id="debug.argument_resolver.not_tagged_controller" on-invalid="ignore_uninitialized"/>
         <argument key="argument_resolver.request" type="service" id="debug.argument_resolver.request" on-invalid="ignore_uninitialized"/>
@@ -6308,8 +6301,6 @@
     <service id=".abstract.instanceof.App\Form\ContactType" class="App\Form\ContactType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\FormatsMediaType" class="App\Form\FormatsMediaType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\FormatsMediaType" class="App\Form\FormatsMediaType" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\InsertCodeType" class="App\Form\InsertCodeType" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Form\InsertCodeType" class="App\Form\InsertCodeType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\MediaType" class="App\Form\MediaType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\MediaType" class="App\Form\MediaType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\PageType" class="App\Form\PageType" autowire="true" abstract="true"/>
@@ -6741,7 +6732,7 @@
         <argument key="category" type="service" id=".errored..service_locator.zuxFTtn.App\Entity\SubCategories"/>
       </argument>
     </service>
-    <service id=".service_locator.L3ckXRp" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.vttkb2x" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CategoriesController::adminCategoryEdit" type="service" id=".service_locator.8o.2qeQ"/>
@@ -6783,6 +6774,9 @@
         <argument key="App\Controller\SubCategoriesController::adminSubCategoriesindex" type="service" id=".service_locator.VeGgI6D"/>
         <argument key="App\Controller\SubCategoriesController::adminSubCategoryDelete" type="service" id=".service_locator.zuxFTtn"/>
         <argument key="App\Controller\SubCategoriesController::adminSubCategoryEdit" type="service" id=".service_locator.zuxFTtn"/>
+        <argument key="App\Kernel::loadRoutes" type="service" id=".service_locator.C9JCBPC"/>
+        <argument key="App\Kernel::registerContainerConfiguration" type="service" id=".service_locator.C9JCBPC"/>
+        <argument key="App\Kernel::terminate" type="service" id=".service_locator.beq5mCo"/>
         <argument key="kernel::loadRoutes" type="service" id=".service_locator.C9JCBPC"/>
         <argument key="kernel::registerContainerConfiguration" type="service" id=".service_locator.C9JCBPC"/>
         <argument key="kernel::terminate" type="service" id=".service_locator.beq5mCo"/>
@@ -6889,7 +6883,7 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.qzlDsU9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.Gke8dq3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\AdminContactType" type="service" id="App\Form\AdminContactType"/>
@@ -6897,7 +6891,6 @@
         <argument key="App\Form\CommentType" type="service" id="App\Form\CommentType"/>
         <argument key="App\Form\ContactType" type="service" id="App\Form\ContactType"/>
         <argument key="App\Form\FormatsMediaType" type="service" id="App\Form\FormatsMediaType"/>
-        <argument key="App\Form\InsertCodeType" type="service" id="App\Form\InsertCodeType"/>
         <argument key="App\Form\MediaType" type="service" id="App\Form\MediaType"/>
         <argument key="App\Form\PageType" type="service" id="App\Form\PageType"/>
         <argument key="App\Form\PostType" type="service" id="App\Form\PostType"/>
@@ -7353,12 +7346,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.L3ckXRp"/>
+      <argument type="service" id=".service_locator.vttkb2x"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.L3ckXRp"/>
+      <argument type="service" id=".service_locator.vttkb2x"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -7647,6 +7640,7 @@
     <service id="Symfony\Component\DependencyInjection\ContainerInterface" alias="service_container" public="false">
       <deprecated package="symfony/dependency-injection" version="5.1">The "%alias_id%" autowiring alias is deprecated. Define it explicitly in your app if you want to keep using it.</deprecated>
     </service>
+    <service id="App\Kernel" alias="kernel" public="true"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface" alias="parameter_bag" public="false"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface" alias="parameter_bag" public="false"/>
     <service id="Symfony\Component\EventDispatcher\EventDispatcherInterface" alias="debug.event_dispatcher" public="false"/>
@@ -7777,7 +7771,7 @@
     <service id="Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface" alias="webpack_encore.entrypoint_lookup[_default]"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.WaGDpDt" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.L3ckXRp"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.vttkb2x"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

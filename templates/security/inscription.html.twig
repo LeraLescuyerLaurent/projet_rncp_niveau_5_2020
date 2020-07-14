@@ -8,18 +8,13 @@
         <h1>Ajouter un Rédacteur</h1>
         <div class="row">
             {% include "/element/_flash_messages.html.twig" %}
-            {% endfor %}
             {{ form_start(registration_form,{ 'attr' :{'class': 'col-13 col-m-13 col-l-10 col-xl-10'}}) }}
                 {{ form_row(registration_form.email,{"label": "Adresse Email", 'attr' :{'placeholder': "Entrer l'adresse Email ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
                 {{ form_row(registration_form.name,{"label": "Pseudo", 'attr' :{'placeholder': "Entrer votre pseudo ... ",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
                 {{ form_row(registration_form.plainPassword,{"label": "Mot de Passe", 'attr' :{'placeholder': "Entrer un mot de passe entre 12 et 50 caractères ...",'class': 'col-13 col-m-13 col-l-10 col-xl-10'}} ) }}
-
                 <button class="uppercase primaire btn">{{ button_label|default('Modifier') }}</button>
             {{ form_end(registration_form) }}
         </div>
     </section>  
 </div> 
-
-
-
 {% endblock %}

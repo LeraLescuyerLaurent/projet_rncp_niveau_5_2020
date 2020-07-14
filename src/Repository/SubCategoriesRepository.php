@@ -23,7 +23,8 @@ class SubCategoriesRepository extends ServiceEntityRepository
     }
  
 
-    public function findAllSubCategories($page, $limit){
+    public function findAllSubCategories($page, $limit)
+    {
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
                 'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'

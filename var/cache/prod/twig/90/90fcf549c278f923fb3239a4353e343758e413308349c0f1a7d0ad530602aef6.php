@@ -48,16 +48,18 @@ class __TwigTemplate_dca4c012b5ef53ebed77a057b56a05abb0feb698fa03e9ff5ffb3b5bb93
                     <a href=\"";
             // line 7
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("liste-articles-par-categorie", ["id" => twig_get_attribute($this->env, $this->source, $context["post"], "id", [], "any", false, false, false, 7), "slug" => twig_get_attribute($this->env, $this->source, $context["post"], "slug", [], "any", false, false, false, 7)]), "html", null, true);
-            echo " \"\"> <span class=\"categorie_name col-12 col-l-3 col-xl-3 uppercase text18 text_";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "name", [], "any", false, false, false, 7), "html", null, true);
-            echo "\">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "name", [], "any", false, false, false, 7), "html", null, true);
-            echo "</span> 
-                        <span class=\"categorie_count col-1 col-l-1 col-xl-1 bgc-";
+            echo " \" >
+                        <span class=\"categorie_name col-12 col-l-3 col-xl-3 uppercase text18 text_";
             // line 8
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "name", [], "any", false, false, false, 8), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "name", [], "any", false, false, false, 8), "html", null, true);
+            echo "</span>
+                        <span class=\"categorie_count col-1 col-l-1 col-xl-1 bgc-";
+            // line 9
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "name", [], "any", false, false, false, 9), "html", null, true);
             echo " text18 textWhite \">";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "total", [], "any", false, false, false, 8), "html", null, true);
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["post"], "total", [], "any", false, false, false, 9), "html", null, true);
             echo " </span>
                     </a>
                 </div>
@@ -66,7 +68,7 @@ class __TwigTemplate_dca4c012b5ef53ebed77a057b56a05abb0feb698fa03e9ff5ffb3b5bb93
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['post'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 12
+        // line 13
         echo "            </div> 
         </div>
 </aside>";
@@ -84,11 +86,11 @@ class __TwigTemplate_dca4c012b5ef53ebed77a057b56a05abb0feb698fa03e9ff5ffb3b5bb93
 
     public function getDebugInfo()
     {
-        return array (  70 => 12,  58 => 8,  50 => 7,  47 => 6,  43 => 5,  37 => 1,);
+        return array (  72 => 13,  60 => 9,  54 => 8,  50 => 7,  47 => 6,  43 => 5,  37 => 1,);
     }
 
     public function getSourceContext()
     {
-        return new Source("", "/element/_countPostsByCategorie.html.twig", "/var/www/html/projet_rncp_niveau_5/templates/element/_countPostsByCategorie.html.twig");
+        return new Source("", "/element/_countPostsByCategorie.html.twig", "/home/lera/Bureau/projet_rncp_niveau_5/templates/element/_countPostsByCategorie.html.twig");
     }
 }

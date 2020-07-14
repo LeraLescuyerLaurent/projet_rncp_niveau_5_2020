@@ -5,14 +5,17 @@
 		<title>{% block title %}administration{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block stylesheets %}
-            <link rel="stylesheet" href="/dist/css/generale.css">
-            {{ encore_entry_link_tags('index') }}
+        <link rel="stylesheet" href=" /build/0.56bc312e.css">
+        <link rel="stylesheet" href=" /build/index.2d8551e3.css">
+        <link rel="stylesheet" href=" /dist/css/generale.css">
+            {# {{ encore_entry_link_tags('index') }} #}
         {% endblock %}
     </head>
     <body>
         {{ render(controller('App\\Controller\\CategoriesController::header') ) }}
 
         <section class="container_admin ">
+            {% if app.user %}
             <aside id="sidebaAdmin" class="sidebar_admin " >
                 <div class="toggle__menu__administration" id="toggleAdminBtn">
                     <span></span>
@@ -50,13 +53,16 @@
                     <li><a href="{{ path('admin-contact-index')}}">liste des messages</a></li>
                 </ul>
             </aside>
-    {% block body %}{% endblock %}
-</section>
-<footer></footer>
-        {{ encore_entry_script_tags('index') }}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="/dist/js/monscript.js"></script>
+            {% endif %}
+        {% block body %}{% endblock %}
+    </section>
+    <footer></footer>
+            {# {{ encore_entry_script_tags('index') }} #}
+            <script src=" /build/runtime.d94b3b43.js"></script>
+            <script src=" /build/0.a06716d5.js"></script>
+            <script src=" /build/index.1b0bb7d6.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src=" /dist/js/monscript.js"></script>
         {% block javascripts %}{% endblock %}
-
     </body>
 </html>

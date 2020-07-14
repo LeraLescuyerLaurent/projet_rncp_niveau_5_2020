@@ -23,8 +23,23 @@ class CategoriesRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllCategorie($page , $limit){
-  
+    public function findAllCategorie($page , $limit)
+    {
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
 
         $qb =  $this->createQueryBuilder('c')
         ->orderBy('c.id', 'DESC')

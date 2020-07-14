@@ -14,7 +14,6 @@ export default class LinkButton extends Button {
  
       action (editor) {
     const link = window.prompt('Entrez le lien','http://')
-    console.log(link)
         editor.getDoc().replaceSelection('[' + editor.getDoc().getSelection() + ']('+link+')')
         editor.focus()
     }

@@ -11,10 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentsController extends AbstractController
 {    
     /**
-     * adminCatgoriesIndex
-     *@Route("admin/comments/index/{page}", name="admin-comment-index")
-     *@IsGranted("ROLE_ADMIN")
-     */
+    *
+    *@Route("admin/comments/index/{page}", name="admin-comment-index")
+    *@IsGranted("ROLE_ADMIN")
+    */
     public function adminCommentsIndex(int $page = 1,CommentsRepository $commentsRepository): Response
     {
         $nbCommentsByPage = 10;
@@ -33,9 +33,9 @@ class CommentsController extends AbstractController
 
 
     /**
-     * adminCommentShow
-     *@Route("admin/comments/show/{id}", name="admin-comment-show")
-     */
+    * adminCommentShow
+    *@Route("admin/comments/show/{id}", name="admin-comment-show")
+    */
     public function adminCommentsShow(int $id,CommentsRepository $commentsRepository)
     {
         return $this->render('admin/comments/show.html.twig', [ 'comment' => $commentsRepository->findOneBy(['id'=>$id])]);
@@ -43,20 +43,20 @@ class CommentsController extends AbstractController
 
     
     /**
-     * @Route("admin/comments/remove/{id}", name="admin-comment-delete")
-     * @IsGranted("ROLE_ADMIN")
-     * 
-     */
+    * @Route("admin/comments/remove/{id}", name="admin-comment-delete")
+    * @IsGranted("ROLE_ADMIN")
+    * 
+    */
     public function remove(int $id,CommentsRepository $commentsRepository)
     {   
-            $comment = $commentsRepository->findOneBy(['id'=>$id]);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($comment);
-            $entityManager->flush();
-            $this->addFlash(
-                'error',
-                'le commentaire a bien été supprimé'
-            );
+        $comment = $commentsRepository->findOneBy(['id'=>$id]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($comment);
+        $entityManager->flush();
+        $this->addFlash(
+            'error',
+            'le commentaire a bien été supprimé'
+        );
 
         return $this->redirectToRoute('admin-comment-index');
     }

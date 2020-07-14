@@ -66,7 +66,6 @@ class PostsRepository extends ServiceEntityRepository
             throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
         }
 
-       
         // dd($paginator);
         return $paginator;
     }
@@ -96,15 +95,15 @@ class PostsRepository extends ServiceEntityRepository
         ->setParameter('online',true)
         ->orderBy('p.createdAt', 'DESC')
         ->getQuery()
-    ;
-    $premierResultat = ($page - 1) * $limit;
-    $qb->setFirstResult($premierResultat)->setMaxResults($limit);
-    $paginator = new Paginator($qb);
+        ;
+        $premierResultat = ($page - 1) * $limit;
+        $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+        $paginator = new Paginator($qb);
 
-    if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-    }
-    return $paginator;
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+        return $paginator;
     }
         
   
@@ -136,98 +135,98 @@ class PostsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-public function countPostsOfSubCategorieForCategorie($id)
-{
-    return  $this->createQueryBuilder('p')
-        ->select('count(p) as total','s.name','s.id','s.slug')
-        ->groupBy('p.subCategory')
-        ->join('p.subCategory', 's')
-        ->andWhere('s.categories = :id')
-        ->setParameter('id',$id)
+    public function countPostsOfSubCategorieForCategorie($id)
+    {
+        return  $this->createQueryBuilder('p')
+            ->select('count(p) as total','s.name','s.id','s.slug')
+            ->groupBy('p.subCategory')
+            ->join('p.subCategory', 's')
+            ->andWhere('s.categories = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    public function UpdatePointsOfPost($id,$points)
+    {
+        return  $this->createQueryBuilder('p')
+            ->update(Posts::class,'p')
+            ->set('p.points', '?1')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter(1, $points)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllPost($page, $limit){
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
+
+        $qb =  $this->createQueryBuilder('p')
+        ->orderBy('p.id', 'DESC')
         ->getQuery()
-        ->getResult()
-    ;
-}
-public function UpdatePointsOfPost($id,$points)
-{
-    return  $this->createQueryBuilder('p')
-        ->update(Posts::class,'p')
-        ->set('p.points', '?1')
-        ->where('p.id = :id')
-        ->setParameter('id', $id)
-        ->setParameter(1, $points)
-        ->getQuery()
-        ->getResult()
-    ;
-}
+        ;
 
-public function findAllPost($page, $limit){
-    if (!is_numeric($page)) {
-        throw new InvalidArgumentException(
-            'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
-        );
+        $premierResultat = ($page - 1) * $limit;
+        $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+        $paginator = new Paginator($qb);
+
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+        return $paginator;
     }
 
-    if ($page < 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas');
+    public function findSearch($r,$page,$limit)
+    {
+        if (!is_numeric($page)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
+            );
+        }
+
+        if ($page < 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas');
+        }
+
+        if (!is_numeric($limit)) {
+            throw new InvalidArgumentException(
+                'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
+            );
+        }
+        $qb =  $this->createQueryBuilder('p')
+            ->where('p.title LIKE :val')
+            ->orWhere('p.slug LIKE :val')
+            ->orWhere('p.hat LIKE :val')
+            ->orWhere('p.content LIKE :val')
+            ->setParameter("val", '%'.$r.'%')
+            -> getQuery()
+        ;
+        $premierResultat = ($page - 1) * $limit;
+        $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+        $paginator = new Paginator($qb);
+
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+        return $paginator;
+        
     }
-
-    if (!is_numeric($limit)) {
-        throw new InvalidArgumentException(
-            'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
-        );
-    }
-
-    $qb =  $this->createQueryBuilder('p')
-    ->orderBy('p.id', 'DESC')
-    ->getQuery()
-;
-
-$premierResultat = ($page - 1) * $limit;
-$qb->setFirstResult($premierResultat)->setMaxResults($limit);
-$paginator = new Paginator($qb);
-
-if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-    throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-}
-return $paginator;
-}
-
-public function findSearch($r,$page,$limit)
-{
-    if (!is_numeric($page)) {
-        throw new InvalidArgumentException(
-            'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
-        );
-    }
-
-    if ($page < 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas');
-    }
-
-    if (!is_numeric($limit)) {
-        throw new InvalidArgumentException(
-            'La valeur de l\'argument $limit est incorrecte (valeur : ' . $limit . ').'
-        );
-    }
-    $qb =  $this->createQueryBuilder('p')
-        ->where('p.title LIKE :val')
-        ->orWhere('p.slug LIKE :val')
-        ->orWhere('p.hat LIKE :val')
-        ->orWhere('p.content LIKE :val')
-        ->setParameter("val", '%'.$r.'%')
-        -> getQuery()
-    ;
-    $premierResultat = ($page - 1) * $limit;
-    $qb->setFirstResult($premierResultat)->setMaxResults($limit);
-    $paginator = new Paginator($qb);
-
-    if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
-    }
-    return $paginator;
-    
-}
     // /**
     //  * @return Posts[] Returns an array of Posts objects
     //  */

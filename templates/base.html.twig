@@ -12,27 +12,29 @@
 
         {% block stylesheets %}
         <script src="https://kit.fontawesome.com/81cdd09cfd.js" crossorigin="anonymous"></script>
-        {{ encore_entry_link_tags('index') }}
+        <link rel="stylesheet" href=" /build/0.56bc312e.css">
+        <link rel="stylesheet" href=" /build/index.2d8551e3.css">
+        {# {{ encore_entry_link_tags('index') }} #}
         {# <link rel="stylesheet" href="/dist/css/generale.css"> #}
         {% endblock %}
     </head>
     <body>
-        {{ render(controller('App\\Controller\\CategoriesController::header') ) }}
+            {{ render(controller('App\\Controller\\CategoriesController::header') ) }}
                 {% block body %}{% endblock %}
-            <section class="sidebare col-14 col-m-14 col-l-4 col-xl-4 ">
-                <aside class="recherche col-14 col-m-14 col-l-4 col-xl-4">
-                    <label for="recherche" >
-                        <h6 class=" bold uppercase " >Rechercher</h6>
-                    </label>
-                    <form action=" {{ path("recherche-article")}} " method="POST">
-                        <input type="text" name="recherche" id="search" placeholder="Rechercher" class="col-13 col-m-13 col-l-3 col-xl-3 " autocomplete="off" >
-                        <button class="col-1 col-m-1 col-l-1 col-xl-1 search" aria-label="Search"><i class="fas fa-search"></i></button>
-                    </form>
-                </aside>
-                <aside class="profil  col-14 col-m-14 col-l-4 col-xl-4">
-                    <div class="profil_image col-2 height-2 col-m-2 height-m-2 col-l-2 height-l-2 col-l-center  col-xl-2  col-xl-center height-xl-2  ">
-                        <img src="/dist/images/logo.png" alt="image profil">
-                    </div>
+                <section class="sidebare col-14 col-m-14 col-l-4 col-xl-4 ">
+                    <aside class="recherche col-14 col-m-14 col-l-4 col-xl-4">
+                        <label for="recherche" >
+                            <h6 class=" bold uppercase " >Rechercher</h6>
+                        </label>
+                        <form action=" {{ path("recherche-article")}} " method="POST">
+                            <input type="text" name="recherche" id="search" placeholder="Rechercher" class="col-13 col-m-13 col-l-3 col-xl-3 " autocomplete="off" >
+                            <button class="col-1 col-m-1 col-l-1 col-xl-1 search" aria-label="Search"><i class="fas fa-search"></i></button>
+                        </form>
+                    </aside>
+                    <aside class="profil  col-14 col-m-14 col-l-4 col-xl-4">
+                        <div class="profil_image col-2 height-2 col-m-2 height-m-2 col-l-2 height-l-2 col-l-center  col-xl-2  col-xl-center height-xl-2  ">
+                            <img src=" /dist/images/logo.png" alt="image profil">
+                        </div>
                         <div class="info_profil col-11 col-m-11 col-l-4 col-xl-3 col-xl-center">
                             <h2>LERA LESCUYER Laurent</h2>
                             <h4>Développeur Web</h4>
@@ -40,36 +42,35 @@
                                 Développeur web HTML, CSS , Js, PHP, Java .
                             </p>
                         </div>
-                </aside>
-                <aside class="sociaux_general col-14 col-m-14 col-l-4 col-xl-4">
-                    <h6 class="uppercase">rejoint nous sur nos réseau sociaux</h6>
-                    <div class="resaux col-14 col-l-4 col-xl-5">
-                        <div class="sharethis-inline-follow-buttons"></div>
-                    </div>
-                </aside>
-
-
-                            {% block cat %}{{ render(controller('App\\Controller\\PostsController::countPostsByCategorie') ) }}{% endblock %}
-                            {% block subcat %}{% endblock %}
-                            {{ render(controller('App\\Controller\\PostsController::PopulairePosts') ) }}
-
-
-            </section>
+                    </aside>
+                    <aside class="sociaux_general col-14 col-m-14 col-l-4 col-xl-4">
+                        <h6 class="uppercase">rejoint nous sur nos réseau sociaux</h6>
+                        <div class="resaux col-14 col-l-4 col-xl-5">
+                            <div class="sharethis-inline-follow-buttons"></div>
+                        </div>
+                    </aside>
+                    {% block cat %}{{ render(controller('App\\Controller\\PostsController::countPostsByCategorie') ) }}{% endblock %}
+                    {% block subcat %}{% endblock %}
+                    {{ render(controller('App\\Controller\\PostsController::PopulairePosts') ) }}
+                </section>
             </section>
         </div>
         <footer>
             <p>
-            {{ render(controller('App\\Controller\\PagesController::pagesList') ) }}
-            <a href="{{ path('contact') }}">contact</a>
-        </p>
+                {{ render(controller('App\\Controller\\PagesController::pagesList') ) }}
+                <a href="{{ path('contact') }}">contact</a>
+            </p>
             <p>
                 2020 © copyright Laurent Lera Lescuyer tips and news
             </p>
         </footer>
-        {{ encore_entry_script_tags('index') }}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="/dist/js/nav.js"></script>
-        <script src="/dist/js/monscript.js"></script>
+        <script src=" /dist/js/nav.js"></script>
+        <script src=" /dist/js/monscript.js"></script>
+        {# {{ encore_entry_script_tags('index') }} #}
+        <script src=" /build/runtime.d94b3b43.js"></script>
+        <script src=" /build/0.a06716d5.js"></script>
+        <script src=" /build/index.1b0bb7d6.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

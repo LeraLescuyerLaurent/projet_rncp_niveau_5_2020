@@ -23,7 +23,8 @@ class CommentsRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllComments($page, $limit){
+    public function findAllComments($page, $limit)
+    {
         if (!is_numeric($page)) {
             throw new InvalidArgumentException(
                 'La valeur de l\'argument $page est incorrecte (valeur : ' . $page . ').'
@@ -43,19 +44,19 @@ class CommentsRepository extends ServiceEntityRepository
         $qb =  $this->createQueryBuilder('c')
         ->orderBy('c.id', 'DESC')
         ->getQuery()
-    ;
-    $premierResultat = ($page - 1) * $limit;
-    $qb->setFirstResult($premierResultat)->setMaxResults($limit);
-    $paginator = new Paginator($qb);
-    
-    if ( ($paginator->count() <= $premierResultat) && $page != 1) {
-        throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        ;
+        $premierResultat = ($page - 1) * $limit;
+        $qb->setFirstResult($premierResultat)->setMaxResults($limit);
+        $paginator = new Paginator($qb);
+        
+        if ( ($paginator->count() <= $premierResultat) && $page != 1) {
+            throw new NotFoundHttpException('La page demandée n\'existe pas.'); // page 404, sauf pour la première page
+        }
+        return $paginator;
     }
-    return $paginator;
-    }
-    // /**
-    //  * @return Comments[] Returns an array of Comments objects
-    //  */
+    /**
+    * @return Comments[] Returns an array of Comments objects
+    */
     /*
     public function findByExampleField($value)
     {

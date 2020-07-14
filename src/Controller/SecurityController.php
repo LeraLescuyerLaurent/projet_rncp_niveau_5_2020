@@ -18,9 +18,9 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("admin/users/add", name="admin-security-registration")
-     * @IsGranted("ROLE_ADMIN")
-     */
+    * @Route("admin/users/add", name="admin-security-registration")
+    * 
+    */
     public function registration(Request $request,UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User();
@@ -50,8 +50,8 @@ class SecurityController extends AbstractController
 
     
     /**
-     * @Route("/login", name="security-login")
-     */
+    * @Route("/login", name="security-login")
+    */
     public function login(): Response
     {
         return $this->render('security/login.html.twig', [
@@ -59,9 +59,9 @@ class SecurityController extends AbstractController
         ]);
     }
 
-/**
- * @Route("logout", name="security-logout")
- */
+    /**
+    * @Route("logout", name="security-logout")
+    */
     public  function logout()
     {
         throw new \LogicException('this method can be blank - it will be intercepted by the logout key on your firewall. ');

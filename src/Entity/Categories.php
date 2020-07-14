@@ -14,25 +14,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Categories
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    * @ORM\Id()
+    * @ORM\GeneratedValue()
+    * @ORM\Column(type="integer")
+    */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
+    * @ORM\Column(type="string", length=50)
+    */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=60)
-     */
+    * @ORM\Column(type="string", length=60)
+    */
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\SubCategories", mappedBy="categories")
-     */
+    * @ORM\OneToMany(targetEntity="App\Entity\SubCategories", mappedBy="categories")
+    */
     private $Subcategory;
 
     public function __construct()
@@ -70,16 +70,15 @@ class Categories
     }
 
     /**
-     * @return Collection|SubCategories[]
-     */
+    * @return Collection|SubCategories[]
+    */
     public function getSubcategory(): Collection
     {
         return $this->Subcategory;
     }
 
- 
-
-    public function __toString() {
+    public function __toString() 
+    {
         return $this->name;
         return $this->slug;
     }

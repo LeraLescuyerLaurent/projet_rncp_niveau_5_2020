@@ -13,16 +13,15 @@
                             <h1 class="uppercase">Contactez-moi</h1>
                             {% include "/element/_flash_messages.html.twig" %}
                         <div class="row">
-                {{ form_start(formContact,{ 'attr' :{'id': "contact",'class': 'col-13 col-m-13 col-l-9 col-xl-9'}}) }}
-                    {{ form_row(formContact.title,{ 'attr' :{'placeholder': "Votre Email",'label': 'Titre de votre message','class': "col-13 col-m-13 col-l-9 col-xl-9"}})}}
-                    {{ form_row(formContact.email,{ 'attr' :{'placeholder': "Votre Email",'label': 'Entrer votre Email','class': "col-13 col-m-13 col-l-9 col-xl-9"}})}}
-                    {{ form_row(formContact.name,{ 'attr' :{'placeholder': "Votre Nom",'class': "col-13 col-m-13 col-l-9 col-xl-9"},'label': 'Entrer votre Nom'})}}
-                    {{ form_row(formContact.content,{'attr' :{'class': "col-13 col-m-13 col-l-9 col-xl-9  height-6 height-m-3 height-l-3"},'label': 'Votre message'})}}
-                    </div>    
-                    <button class="uppercase primaire btn">envoyer</button> 
-                {{ form_end(formContact) }}
-                    
-                </section>
+                        {{ form_start(formContact,{ 'attr' :{'id': "contact",'class': 'col-13 col-m-13 col-l-9 col-xl-9'}}) }}
+                            {{ form_row(formContact.title,{ 'attr' :{'placeholder': "Votre Email",'label': 'Titre de votre message','class': "col-13 col-m-13 col-l-9 col-xl-9",'value':' '}})}}
+                            {{ form_row(formContact.email,{ 'attr' :{'placeholder': "Votre Email",'label': 'Entrer votre Email','class': "col-13 col-m-13 col-l-9 col-xl-9",'value':' ','value':' '}})}}
+                            {{ form_row(formContact.name,{ 'attr' :{'placeholder': "Votre Nom",'class': "col-13 col-m-13 col-l-9 col-xl-9"},'label': 'Entrer votre Nom','value':' '})}}
+                            {{ form_row(formContact.content,{'attr' :{'class': "col-13 col-m-13 col-l-9 col-xl-9  height-6 height-m-3 height-l-3"},'label': 'Votre message','value':' '})}}
+                            </div>    
+                            <button class="uppercase primaire btn">envoyer</button> 
+                        {{ form_end(formContact) }}
+                    </section>
                 </div>
             </section>
         </main>

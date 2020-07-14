@@ -15,10 +15,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class User implements UserInterface
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    * @ORM\Id()
+    * @ORM\GeneratedValue()
+    * @ORM\Column(type="integer")
+    */
     private $id;
 
     /**
@@ -30,14 +30,14 @@ class User implements UserInterface
     *      minMessage = "Votre nom doit contenir au minimum {{ limit }} charactères",
     *      maxMessage = "Votre nom doit contenir au maximum {{ limit }} charactères",
     * )
-     */
+    */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Email
-     */
+    * @ORM\Column(type="string", length=255, unique=true)
+    * @Assert\NotBlank
+    * @Assert\Email
+    */
     private $email;
 
     /**
